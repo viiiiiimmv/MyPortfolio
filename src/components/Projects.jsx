@@ -10,7 +10,7 @@ export default function Projects() {
     const displayProject = selectedProject || hoveredProject;
 
     return (
-        <section className="projects-section">
+        <section className="projects-section" id='projects'>
             <div className="project-container">
                 <div className="project-list">
                     <h1>THINGS I'VE <br /> WORKED ON</h1>

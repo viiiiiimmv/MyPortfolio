@@ -32,7 +32,7 @@ const FooterContact = () => {
     };
 
     return (
-        <div className="footer-container">
+        <div className="footer-container" id='contact'>
             {loading && <LoaderOverlay><Loader /></LoaderOverlay>}
             {toast.message && (
                 <Toast className={toast.type}>
@@ -45,10 +45,10 @@ const FooterContact = () => {
                 <h1>SOMETHING?</h1>
                 <p>CONNECT WITH ME</p>
                 <div className="social-icons">
-                    <a href="#"><FaInstagram /></a>
-                    <a href="#"><FaLinkedin /></a>
-                    <a href="#"><FaGithub /></a>
-                    <a href="#"><FaXTwitter /></a>
+                    <a href="https://www.instagram.com/__shiv.chauhan?igsh=NnJ5aWV1aTRnNnhr" target='_blank'><FaInstagram /></a>
+                    <a href="https://www.linkedin.com/in/shiv-chauhan-7a8f05" target='_blank'><FaLinkedin /></a>
+                    <a href="https://github.com/shiv-835" target='_blank'><FaGithub /></a>
+                    <a href="https://x.com/iamshivchauhann?t=0s3quq5vbQUwe2U64NhSBw&s=09" target='_blank'><FaXTwitter /></a>
                 </div>
                 <p className="copyright">© 2025, Shiv Chauhan.<br />All Rights Reserved</p>
             </div>

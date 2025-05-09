@@ -63,6 +63,12 @@
     background-color: #fff;
 }
 
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .links a {
     display: inline-block;
     margin-right: 1rem;

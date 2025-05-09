@@ -35,8 +35,8 @@ const projects = [
             "https://res.cloudinary.com/ddyc6aljm/image/upload/v1746796744/11_nt7laj.png",
         ],
         links: [
-            { text: "GitHub", url: "https://github.com/username/fit-genius" },
-            { text: "Try App", url: "https://fitgenius-app.com" }
+            { text: "View Research Article", url: "https://www.irjet.net/archives/V11/i8/IRJET-V11I830.pdf" },
+            { text: "Try Website", url: "https://fitgeniushub.netlify.app/" }
         ]
     },
     {
@@ -57,8 +57,8 @@ const projects = [
             "https://res.cloudinary.com/ddyc6aljm/image/upload/v1746796747/15_tqupts.png"
         ],
         links: [
-            { text: "Live Site", url: "https://stunningwalls.com" },
-            { text: "GitHub", url: "https://github.com/username/stunning-walls" }
+            { text: "Live Demo", url: "https://stunning-walls-landing-page.netlify.app/" },
+            { text: "GitHub", url: "https://github.com/shiv-835/stunning-walls-landing-page" }
         ]
     }
 ];

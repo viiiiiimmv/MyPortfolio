@@ -6,9 +6,9 @@ export default function Hero() {
             <nav>
                 <p>SCN835</p>
                 <span>
-                    <a href="/">About</a>
-                    <a href="/">Projects</a>
-                    <a href="/">Contact</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
                 </span>
             </nav>
             <div className="hero-content">

@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from 'react'
 import '../assets/css/PostHero.css'
 
@@ -27,7 +28,7 @@ export default function PostHero() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="post-hero-section">
+        <section ref={sectionRef} className="post-hero-section" id='about'>
             <div className="strip">BUILDING</div>
             <div className="strip">CREATING</div>
             <div className="strip">CAPTURING</div>
