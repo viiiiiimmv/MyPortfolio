@@ -1,0 +1,68 @@
+/* Reset and Base Styles */
+.hero-section * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .hero-section {
+    background-image: linear-gradient(120deg, #000000, #1F1F1F);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Clash Grotesk', sans-serif;
+  }
+  
+
+  .hero-section nav {
+    width: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 6rem;
+    font-size: 1.5rem;
+    font-weight: 100;
+    z-index: 1000;
+  }
+  
+  .hero-section nav span {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .hero-section nav span a {
+    padding: 0 1rem;
+    text-decoration: underline;
+    color: white;
+  }
+  
+  /* Hero Content */
+  .hero-content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    color: white;
+  }
+  
+  .hero-content h1 {
+    font-size: 8.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Clash Grotesk', sans-serif;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #ccc;
+    font-family: 'Inter', sans-serif;
+  }
+  

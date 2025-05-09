@@ -1,0 +1,97 @@
+.post-hero-section {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    perspective: 1000px;
+    position: relative;
+}
+
+.strip {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-family: 'Clash Grotesk', sans-serif;
+    font-size: 10rem;
+    font-weight: 600;
+    padding: 0 2rem;
+    color: transparent;
+    -webkit-text-stroke: 2px white;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(var(--fromX)) skewX(10deg);
+    transition: transform 0.5s ease, opacity 0.5s ease, color 0.5s ease, filter 0.3s ease, background-position 10s ease;
+}
+
+.strip:nth-child(odd) {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.strip:nth-child(even) {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.strip:nth-child(1) {
+    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1746804509/1_cds2do.png");
+    filter: grayscale(100%);
+    --fromX: -100%;
+}
+
+.strip:nth-child(2) {
+    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1746804509/2_r4ef5f.png");
+    filter: grayscale(100%);
+    --fromX: 100%;
+}
+
+.strip:nth-child(3) {
+    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1746804510/3_tnzgon.png");
+    filter: grayscale(100%);
+    --fromX: -100%;
+}
+
+.strip:nth-child(4) {
+    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1746804510/4_kj1qwn.png");
+    filter: grayscale(100%);
+    --fromX: 100%;
+}
+
+.strip.in-view {
+    opacity: 1;
+    transform: translateX(0) skewX(0);
+}
+
+.strip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    transform: scale(1.1);
+    animation: zoomPan 30s infinite alternate;
+}
+
+@keyframes zoomPan {
+    0% { transform: scale(1.1) translate(0, 0); }
+    100% { transform: scale(1.2) translate(-20px, -20px); }
+}
+
+.strip:hover {
+    filter: grayscale(0%);
+    color: white;
+    -webkit-text-stroke: 0px transparent;
+    transform: scale(1.02);
+}
+
+.post-hero-section:hover .strip {
+    transform: translateX(0) translateY(0) rotateY(calc(var(--moveX) * 5deg)) rotateX(calc(var(--moveY) * 5deg));
+    transition: transform 0.2s ease;
+}

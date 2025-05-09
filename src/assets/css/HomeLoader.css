@@ -1,0 +1,93 @@
+.home-loader-wrapper {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  
+  .home-door {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background-color: black;
+    z-index: 2;
+    box-shadow: 0 0 20px 2px #000;
+  }
+  
+  .home-sweep {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(to right, rgba(0,0,0,0.6), transparent);
+    z-index: 1;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+  }
+  
+  .home-sweep-left {
+    left: 0;
+    animation-name: home-sweep-left-anim;
+  }
+  
+  .home-sweep-right {
+    right: 0;
+    transform: scaleX(-1);
+    animation-name: home-sweep-right-anim;
+  }
+  
+  @keyframes home-sweep-left-anim {
+    0%   { transform: translateX(-100%); opacity: 0.2; }
+    50%  { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-100%); opacity: 0.2; }
+  }
+  
+  @keyframes home-sweep-right-anim {
+    0%   { transform: translateX(100%) scaleX(-1); opacity: 0.2; }
+    50%  { transform: translateX(0) scaleX(-1); opacity: 1; }
+    100% { transform: translateX(100%) scaleX(-1); opacity: 0.2; }
+  }
+  
+  .home-final-expand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 4;
+    animation: home-final-expand-anim 0.8s ease-in-out forwards;
+  }
+  
+  @keyframes home-final-expand-anim {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  .home-loader-text {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    letter-spacing: 1px;
+    z-index: 5;
+  }
+
+  .home-sweep-container.hide {
+    animation: fadeOutSweep 1s forwards;
+  }
+  
+  @keyframes fadeOutSweep {
+    to {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+  }  
+  
