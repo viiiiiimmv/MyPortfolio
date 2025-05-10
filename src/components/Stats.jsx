@@ -1,36 +1,28 @@
-import React from "react";
-import "../assets/css/Stats.css";
+import React from 'react';
+import '../assets/css/Stats.css'; // We'll create this CSS file
+import ProblemStatsChart from './ProblemStatsChart'; // Assuming this is the path to your chart component
 
 const Stats = () => {
-    return (
-        <div className="hero-container">
-            <h1 className="hero-title">
-                Fueled by code, coffee, and a passion for photography.<br />
-                Building experiences that connect and inspire.
-            </h1>
-            <hr className="hero-divider" />
-
-            <div className="grid-container">
-                <div className="grid-item stealthy-shutter">
-                    <p>STEALTHY SHUTTER<br />POSTS</p>
-                </div>
-                <div className="grid-item linkedin-posts">
-                    <i className="fab fa-linkedin"></i>
-                    <p>LINKEDIN POSTS<br />GO HERE</p>
-                </div>
-                <div className="grid-item caffeine-quote">
-                    "98% caffeinated, 2% still sleepy."
-                </div>
-                <div className="grid-item leetcode-stats">
-                    <i className="fas fa-code"></i>
-                    <p>LEETCODE STATS<br />GO HERE</p>
-                </div>
-                <div className="grid-item check-cv">
-                    <button>CHECK<br />OUT<br />MY CV</button>
-                </div>
-            </div>
+  return (
+    <div className="portfolio-container">
+      <h1>
+        Fueled by code, coffee, and a passion for photography.
+        <br />
+        Building experiences that connect and inspire.
+      </h1>
+      <hr />
+      <div className="cards">
+        <div className="card left-card "></div>
+        <div className="card right-card">
+          <div className="section-1">
+            <ProblemStatsChart username="shivchauhan" />
+          </div>
+          <div className="section-2">"98% caffeinated, 2% still sleepy." </div>
+          <div className="section-3"></div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Stats;

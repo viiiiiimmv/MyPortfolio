@@ -1,0 +1,35 @@
+* {
+  cursor: none !important;
+}
+
+.cursor-wrapper {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: relative;
+  box-shadow:
+    0 0 6px rgba(255, 255, 255, 0.3),  /* White glow */
+    0 0 6px rgba(0, 0, 0, 0.3);        /* Black glow */
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 4px rgba(255, 255, 255, 0.5),  /* White glow */
+    0 0 4px rgba(0, 0, 0, 0.4);        /* Black glow */
+}
