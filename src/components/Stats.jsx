@@ -6,7 +6,7 @@ import images from '../assets/data/imageData';
 const handleDownload = () => {
   const link = document.createElement('a');
   link.href = 'https://drive.google.com/file/d/180o5z1N69kH0GgS4QMjojMA9mm4Hrv5i/view?usp=share_link';
-  link.download = 'resume.pdf'; 
+  link.download = 'resume.pdf';
   link.click();
 }
 
@@ -20,10 +20,15 @@ const Stats = () => {
     const interval = setInterval(() => {
       const nextIndex = Math.floor(Math.random() * images.length);
       setCurrentImage(images[nextIndex]);
-    }, 10000); // 10 seconds
+    }, 10000); // Change image every 10 seconds
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleLeftCardClick = () => {
+    // Open the desired link in a new tab
+    window.open('https://www.instagram.com/stealthy.shutter?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank');
+  };
 
   return (
     <div className="portfolio-container">
@@ -39,13 +44,14 @@ const Stats = () => {
           style={{
             backgroundImage: `url(${currentImage})`
           }}
+          onClick={handleLeftCardClick} // Add the click handler here
         ></div>
         <div className="card right-card">
           <div className="section-1">
             <ProblemStatsChart username="shivchauhan" />
           </div>
           <div className="section-2" onClick={handleDownload}>
-              View My Resume
+            View My Resume
           </div>
           <div className="section-3">
             <p>
