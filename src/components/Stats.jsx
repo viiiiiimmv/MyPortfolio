@@ -1,8 +1,30 @@
-import React from 'react';
-import '../assets/css/Stats.css'; // We'll create this CSS file
-import ProblemStatsChart from './ProblemStatsChart'; // Assuming this is the path to your chart component
+import React, { useState, useEffect } from 'react';
+import '../assets/css/Stats.css';
+import ProblemStatsChart from './ProblemStatsChart';
+import images from '../assets/data/imageData';
+
+const handleDownload = () => {
+  const link = document.createElement('a');
+  link.href = 'https://drive.google.com/file/d/180o5z1N69kH0GgS4QMjojMA9mm4Hrv5i/view?usp=share_link';
+  link.download = 'resume.pdf'; 
+  link.click();
+}
 
 const Stats = () => {
+  const [currentImage, setCurrentImage] = useState(() => {
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextIndex = Math.floor(Math.random() * images.length);
+      setCurrentImage(images[nextIndex]);
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="portfolio-container">
       <h1>
@@ -12,13 +34,26 @@ const Stats = () => {
       </h1>
       <hr />
       <div className="cards">
-        <div className="card left-card "></div>
+        <div
+          className="card left-card fade-image"
+          style={{
+            backgroundImage: `url(${currentImage})`
+          }}
+        ></div>
         <div className="card right-card">
           <div className="section-1">
             <ProblemStatsChart username="shivchauhan" />
           </div>
-          <div className="section-2">"98% caffeinated, 2% still sleepy." </div>
-          <div className="section-3"></div>
+          <div className="section-2" onClick={handleDownload}>
+              View My Resume
+          </div>
+          <div className="section-3">
+            <p>
+              Wanna have a coffee with me? 
+              <br />
+              <a href="#contact">Feel free to drop me a message!!</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
