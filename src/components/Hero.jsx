@@ -7,7 +7,7 @@ export default function Hero({ isMuted, setIsMuted }) {
     <section className="hero-section">
       <nav>
         <VolumeControl isMuted={isMuted} setIsMuted={setIsMuted} />
-        <span>
+        <span className='nav-links'>
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
