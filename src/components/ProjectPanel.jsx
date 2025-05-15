@@ -6,7 +6,7 @@ const ProjectPanel = () => {
   return (
     <div className="prj-panel">
       <div className="prj-header">
-        <h1 className="prj-title">Selected Work</h1>
+        <h1 className="prj-title">Things I've worked on</h1>
         <p className="prj-subtitle">
           A collection of projects that showcase engineering, design, and problem-solving in action.
         </p>

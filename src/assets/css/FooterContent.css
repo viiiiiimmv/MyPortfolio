@@ -163,8 +163,9 @@ button:hover {
 
 /* Small Phones (portrait) */
 @media (max-width: 480px) {
-    .footer-container {
-        padding: 2.5rem;
+    .footer-container{
+        display: flex;
+        flex-direction: column-reverse;
     }
 
     .left-section h1 {
@@ -178,6 +179,7 @@ button:hover {
     .copyright,.social-icons{
         margin: 0;
     }
+
     input, textarea {
         font-size: 0.9rem;
         padding: 0.6rem;

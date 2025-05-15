@@ -17,9 +17,9 @@ const FooterContact = () => {
 
         emailjs.sendForm(
             'shivchauhan',
-            'template_ouv734e',
+            'template_5nfkixy',
             form.current,
-            '54fxdjxYO7MfHvQvi'
+            '3Og7VoKZ9lJgv9k8h'
         )
             .then((result) => {
                 setLoading(false);
@@ -60,15 +60,15 @@ const FooterContact = () => {
                 <form ref={form} onSubmit={sendEmail}>
                     <label>
                         NAME
-                        <input type="text" name="user_name" placeholder="Your Name" required />
+                        <input type="text" name="username" placeholder="Your Name" required />
                     </label>
                     <label>
                         EMAIL
-                        <input type="email" name="user_email" placeholder="Your Email" required />
+                        <input type="email" name="email" placeholder="Your Email" required />
                     </label>
                     <label>
                         MESSAGE
-                        <textarea name="message" placeholder="Your Message" required></textarea>
+                        <textarea name="description" placeholder="Your Message" required></textarea>
                     </label>
                     <button type="submit" disabled={loading}>START A CONVERSATION</button>
                 </form>

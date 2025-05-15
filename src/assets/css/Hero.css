@@ -72,8 +72,14 @@
       display: none;
     }
 
+    .hero-section nav{
+      padding-top: 2rem;
+    }
+
+
     .hero-content h1{
       font-size: 3rem;
+      padding: 0 2rem;
     }
 
     .hero-content p{

@@ -28,7 +28,7 @@ function App() {
 
   return (
     <>
-      {!showLoader && (
+      {/* {!showLoader && (
         <BackgroundAudio
           src="/assets/betterdays.mp3"
           volume={isMuted ? 0 : volume}
@@ -36,7 +36,7 @@ function App() {
       )}
       {showLoader ? (
         <HomeLoader />
-      ) : (
+      ) : ( */}
         <>
           <CustomCursor />
           <Hero isMuted={isMuted} setIsMuted={setIsMuted} />
@@ -45,7 +45,7 @@ function App() {
           {isMobile ? <MobileOutro /> : <Stats />} {/* Conditional rendering */}
           <FooterContent />
         </>
-      )}
+      {/* )} */}
     </>
   );
 }
