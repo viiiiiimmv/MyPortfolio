@@ -2,6 +2,7 @@ import { useState } from 'react';
 import '../assets/css/Projects.css';
 import projects from '../assets/data/projectsData.js';
 import ProjectPreview from './ProjectPreview.jsx';
+import Spline from '@splinetool/react-spline';
 
 export default function Projects() {
     const [selectedProject, setSelectedProject] = useState(null);
@@ -36,19 +37,8 @@ export default function Projects() {
                     {displayProject ? (
                         <ProjectPreview project={displayProject} />
                     ) : (
-                        <div className="default-content">
-                            <h1>
-                                Building&nbsp;
-                                <span className="dots"><span>.</span><span>.</span><span>.</span></span>
-                            </h1>
-                            <h1>
-                                Exploring&nbsp;
-                                <span className="dots medium"><span>.</span><span>.</span><span>.</span></span>
-                            </h1>
-                            <h1>
-                                Capturing&nbsp;
-                                <span className="dots slow"><span>.</span><span>.</span><span>.</span></span>
-                            </h1>
+                        <div className='fixed-spline' style={{ width: '100%', height: '100vh' }}>
+                            <Spline scene="https://prod.spline.design/r8z9ELH6mdbydVQo/scene.splinecode" />
                         </div>
                     )}
                 </div>
