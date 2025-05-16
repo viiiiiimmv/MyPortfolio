@@ -6,7 +6,7 @@
 }
 
 .hero-section {
-  background-image: linear-gradient(120deg, #000000, #1F1F1F);
+  background-color: black;
   height: 100vh;
   width: 100%;
   display: flex;
@@ -42,18 +42,23 @@
   color: white;
   text-decoration: none;
   overflow: hidden;
+  transition: color 0.3s ease;
 }
 
-/* Underline animation */
+/* Hover underline and color */
+.nav-links a:hover {
+  color: white;
+}
+
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: -3px;
+  bottom: 0;
   left: 0;
   width: 0%;
   height: 2px;
-  background-color: cyan;
-  transition: width 0.4s ease-out;
+  background-color: white;
+  transition: width 0.4s ease;
 }
 
 .nav-links a:hover::after {
@@ -99,31 +104,56 @@
     display: inline-block;
     transition: transform 0.3s ease, text-shadow 0.3s ease;
     cursor: default;
+    transform-origin: bottom center;
   }
 
   .animated-heading .char:hover {
-    animation: jumpShift 1s ease forwards;
+    animation: jumpShift 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
   }
 
   @keyframes jumpShift {
     0% {
-      transform: translateY(0);
+      transform: translateY(0) rotate(0);
       text-shadow: none;
     }
-    30% {
+    10% {
+      transform: translateY(-5px) rotate(-3deg);
+      text-shadow: 2px 2px 0 #4361ee;
+    }
+    20% {
       transform: translateY(-10px) rotate(-5deg);
-      text-shadow: 8px 8px 0 #4361ee;
+      text-shadow: 4px 4px 0 #4361ee;
+    }
+    30% {
+      transform: translateY(-7px) rotate(2deg);
+      text-shadow: -4px -4px 0 #ff206e;
+    }
+    40% {
+      transform: translateY(5px) rotate(3deg);
+      text-shadow: -3px -3px 0 #ff206e;
+    }
+    50% {
+      transform: translateY(8px) rotate(-2deg);
+      text-shadow: 3px 3px 0 #9b5de5;
+    }
+    60% {
+      transform: translateY(-4px) rotate(1deg);
+      text-shadow: -2px -2px 0 #3a86ff;
     }
     70% {
-      transform: translateY(5px) rotate(5deg);
-      text-shadow: -8px -8px 0 #ff206e;
+      transform: translateY(3px) rotate(-1deg);
+      text-shadow: 2px 2px 0 #00f5d4;
     }
-    85% {
-      transform: translateY(-3px) rotate(-2deg);
-      text-shadow: 6px 6px 0 #9b5de5;
+    80% {
+      transform: translateY(-2px) rotate(1deg);
+      text-shadow: -1px -1px 0 #ffbe0b;
+    }
+    90% {
+      transform: translateY(1px) rotate(0deg);
+      text-shadow: none;
     }
     100% {
-      transform: translateY(0);
+      transform: translateY(0) rotate(0);
       text-shadow: none;
     }
   }

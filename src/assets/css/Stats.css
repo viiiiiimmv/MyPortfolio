@@ -47,7 +47,12 @@ hr {
 }
 
 .left-card {
-  width: 50%;
+  flex: 1;
+  aspect-ratio: 1 / 1; /* 👈 Makes it square */
+  border-radius: 1rem;
+  min-height: 40rem;
+  max-width: 100%;
+  box-sizing: border-box;
   background-size: cover;
   background-position: center;
   border-radius: 12px;

@@ -4,6 +4,7 @@ import projects from '../assets/data/projectsData.js';
 import ProjectPreview from './ProjectPreview.jsx';
 import Spline from '@splinetool/react-spline';
 
+
 export default function Projects() {
     const [selectedProject, setSelectedProject] = useState(null);
     const [hoveredProject, setHoveredProject] = useState(null);
