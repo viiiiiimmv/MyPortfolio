@@ -5,16 +5,16 @@ html, body {
   height: 100%;
   font-family: 'Clash Grotesk', sans-serif;
   background: #000;
+  color: #fff;
 }
 
 /* Main container */
 .post-hero-section {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
-  height: 100dvh; /* better for mobile viewport */
+  height: 100dvh;
   width: 100%;
   overflow: hidden;
-  perspective: 1000px;
   position: relative;
 }
 
@@ -26,21 +26,20 @@ html, body {
   display: flex;
   align-items: center;
   padding: 0 2rem;
-  font-size: 10rem;
+  font-size: 8vw;
   font-weight: 600;
   color: transparent;
-  -webkit-text-stroke: 2px white;
+  -webkit-text-stroke: 2px #fff;
   background-size: cover;
   background-position: center;
   overflow: hidden;
   opacity: 0;
   transform: translateX(var(--fromX)) skewX(10deg);
   transition:
-    transform 0.5s ease,
-    opacity 0.5s ease,
-    color 0.5s ease,
-    filter 0.3s ease,
-    background-position 10s ease;
+    transform 0.7s ease,
+    opacity 0.7s ease,
+    color 0.7s ease,
+    filter 0.5s ease;
 }
 
 /* Text alignment */
@@ -53,7 +52,7 @@ html, body {
   text-align: right;
 }
 
-/* Backgrounds & animation origin */
+/* Background grayscale and animation direction */
 .strip:nth-child(1) {
   background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1746804509/1_cds2do.png");
   filter: grayscale(100%);
@@ -81,66 +80,49 @@ html, body {
   transform: translateX(0) skewX(0);
 }
 
-/* Background animation layer */
-.strip::before {
+/* Gradient color overlay (hidden by default) */
+.strip::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: inherit;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  transform: scale(1.1);
-  animation: zoomPan 30s infinite alternate;
+  z-index: 1;
+  background: linear-gradient(120deg, #ff4e50, #f9d423, #24c6dc, #514a9d);
+  background-size: 300% 300%;
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 0.5s ease, transform 1s ease;
 }
 
-@keyframes zoomPan {
-  0% {
-    transform: scale(1.1) translate(0, 0);
-  }
-  100% {
-    transform: scale(1.2) translate(-20px, -20px);
-  }
-}
-
-/* Hover effects */
+/* Hover: vivid color burst */
 .strip:hover {
   filter: grayscale(0%);
   color: white;
   -webkit-text-stroke: 0 transparent;
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
-.post-hero-section:hover .strip {
-  transform:
-    translateX(0)
-    translateY(0)
-    rotateY(calc(var(--moveX) * 5deg))
-    rotateX(calc(var(--moveY) * 5deg));
-  transition: transform 0.2s ease;
+.strip:hover::after {
+  opacity: 0.3;
+  animation: gradientMove 6s ease infinite;
+}
+
+/* Fancy text shine */
+.strip span {
+  position: relative;
+  z-index: 2;
+}
+
+/* Moving gradient animation */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Mobile Responsive */
 @media (max-width: 480px) {
-  .post-hero-section {
-    height: 100dvh; /* safer and more accurate on mobile */
-  }
-
   .strip {
     font-size: 3rem;
-    background-size: auto;
-  }
-
-  .strip:nth-child(1) {
-    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1747126485/1_rxqbnm.png");
-  }
-  .strip:nth-child(2) {
-    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1747126485/2_pfmkwg.png");
-  }
-  .strip:nth-child(3) {
-    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1747126485/3_tdzy5a.png");
-  }
-  .strip:nth-child(4) {
-    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1747126486/4_pkrong.png");
+    padding: 0 1rem;
   }
 }
