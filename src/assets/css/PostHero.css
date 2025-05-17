@@ -112,6 +112,18 @@ html, body {
   z-index: 2;
 }
 
+.strip.active {
+  filter: grayscale(0%);
+  color: white;
+  -webkit-text-stroke: 0 transparent;
+  transform: scale(1.03);
+}
+.strip.active::after {
+  opacity: 0.3;
+  animation: gradientMove 6s ease infinite;
+}
+
+
 /* Moving gradient animation */
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
@@ -125,4 +137,22 @@ html, body {
     font-size: 3rem;
     padding: 0 1rem;
   }
+
+  .strip:nth-child(1) {
+  background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1747126485/1_rxqbnm.png");
+  }
+
+  .strip:nth-child(2) {
+  background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1747126485/2_pfmkwg.png");
+  }
+
+  .strip:nth-child(3) {
+    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1747126485/3_tdzy5a.png");
+  }
+
+  .strip:nth-child(4) {
+    background: url("https://res.cloudinary.com/ddyc6aljm/image/upload/v1747126486/4_pkrong.png");
+  }
+
 }
+

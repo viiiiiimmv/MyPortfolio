@@ -20,13 +20,12 @@ const Stats = () => {
     const interval = setInterval(() => {
       const nextIndex = Math.floor(Math.random() * images.length);
       setCurrentImage(images[nextIndex]);
-    }, 10000); // Change image every 10 seconds
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);
 
   const handleLeftCardClick = () => {
-    // Open the desired link in a new tab
     window.open('https://www.instagram.com/stealthy.shutter?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank');
   };
 
