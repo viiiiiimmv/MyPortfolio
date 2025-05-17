@@ -47,18 +47,19 @@ const StyledWrapper = styled.div`
   }
 
   .loadingspinner div {
-    display: inline-block;
-    background: darkorange;
-    border: none;
-    border-radius: 2px;
-    width: var(--square);
-    height: var(--square);
-    position: absolute;
-    padding: 0px;
-    margin: 0px;
-    font-size: 6pt;
-    color: black;
-  }
+  display: inline-block;
+  background-color: white !important; /* Ensures white color is enforced */
+  border: none;
+  border-radius: 2px;
+  width: var(--square);
+  height: var(--square);
+  position: absolute;
+  padding: 0px;
+  margin: 0px;
+  font-size: 6pt;
+  color: black;
+}
+
 
   .loadingspinner #square1 {
     left: calc( 0 * var(--offset) );

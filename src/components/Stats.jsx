@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/css/Stats.css';
 import ProblemStatsChart from './ProblemStatsChart';
 import images from '../assets/data/imageData';
+import { FaInstagram } from 'react-icons/fa';
 
 const handleDownload = () => {
   const link = document.createElement('a');
@@ -25,10 +26,6 @@ const Stats = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLeftCardClick = () => {
-    window.open('https://www.instagram.com/stealthy.shutter?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank');
-  };
-
   return (
     <div className="portfolio-container">
       <h1>
@@ -43,8 +40,12 @@ const Stats = () => {
           style={{
             backgroundImage: `url(${currentImage})`
           }}
-          onClick={handleLeftCardClick} // Add the click handler here
-        ></div>
+        >
+          <div className="instagram-link" onClick={() => window.open('https://www.instagram.com/stealthy.shutter', '_blank')}>
+            <FaInstagram className="insta-icon" />
+            <span className="insta-text">@stealthy.shutter</span>
+          </div>
+        </div>
         <div className="card right-card">
           <div className="section-1">
             <ProblemStatsChart username="shivchauhan" />
