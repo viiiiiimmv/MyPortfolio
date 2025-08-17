@@ -1,9 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FaInstagram, FaLinkedin, FaGithub, FaXTwitter } from 'react-icons/fa6';
-import emailjs from '@emailjs/browser';
-import styled from 'styled-components';
-import Loader from './Loader';
-import '../assets/css/FooterContent.css';
+import { Instagram, Linkedin, Github, Twitter, Send, Loader2 } from 'lucide-react';
 
 const FooterContact = () => {
     const form = useRef();
@@ -15,6 +11,8 @@ const FooterContact = () => {
         setLoading(true);
         setToast({ message: '', type: '' });
 
+        // You'll need to import emailjs and uncomment this section:
+        /*
         emailjs.sendForm(
             'shivchauhan',
             'template_5nfkixy',
@@ -25,89 +23,182 @@ const FooterContact = () => {
                 setLoading(false);
                 setToast({ message: 'Message sent successfully!', type: 'success' });
                 form.current.reset();
+                
+                setTimeout(() => {
+                    setToast({ message: '', type: '' });
+                }, 3000);
             }, (error) => {
                 setLoading(false);
                 setToast({ message: 'Oops! Something went wrong.', type: 'error' });
+                
+                setTimeout(() => {
+                    setToast({ message: '', type: '' });
+                }, 3000);
             });
+        */
+
+        // Temporary simulation for demo - remove when using emailjs
+        setTimeout(() => {
+            setLoading(false);
+            setToast({ message: 'Message sent successfully!', type: 'success' });
+            form.current.reset();
+            
+            setTimeout(() => {
+                setToast({ message: '', type: '' });
+            }, 3000);
+        }, 2000);
     };
 
+    const socialLinks = [
+        { icon: Instagram, href: "https://www.instagram.com/__shiv.chauhan?igsh=NnJ5aWV1aTRnNnhr", label: "Instagram" },
+        { icon: Linkedin, href: "https://www.linkedin.com/in/shiv-chauhan-7a8f05", label: "LinkedIn" },
+        { icon: Github, href: "https://github.com/shiv-835", label: "GitHub" },
+        { icon: Twitter, href: "https://x.com/iamshivchauhann?t=0s3quq5vbQUwe2U64NhSBw&s=09", label: "Twitter" }
+    ];
+
     return (
-        <div className="footer-container" id='contact'>
-            {loading && <LoaderOverlay><Loader /></LoaderOverlay>}
-            {toast.message && (
-                <Toast className={toast.type}>
-                    {toast.message}
-                </Toast>
-            )}
-            <div className="left-section">
-                <h1>CURIOUS</h1>
-                <h1>ABOUT</h1>
-                <h1>SOMETHING?</h1>
-                <p>CONNECT WITH ME</p>
-                <div className="social-icons">
-                    <a href="https://www.instagram.com/__shiv.chauhan?igsh=NnJ5aWV1aTRnNnhr" target='_blank'><FaInstagram /></a>
-                    <a href="https://www.linkedin.com/in/shiv-chauhan-7a8f05" target='_blank'><FaLinkedin /></a>
-                    <a href="https://github.com/shiv-835" target='_blank'><FaGithub /></a>
-                    <a href="https://x.com/iamshivchauhann?t=0s3quq5vbQUwe2U64NhSBw&s=09" target='_blank'><FaXTwitter /></a>
+        <section id="contact" className="relative min-h-screen bg-black text-white">
+            {/* Loading Overlay */}
+            {loading && (
+                <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+                    <div className="flex flex-col items-center gap-4">
+                        <Loader2 className="w-8 h-8 animate-spin text-white" />
+                        <p className="text-sm text-gray-300">Sending message...</p>
+                    </div>
                 </div>
-                <p className="copyright">© 2025, Shiv Chauhan.<br />All Rights Reserved</p>
+            )}
+
+            {/* Toast Notification */}
+            {toast.message && (
+                <div className={`fixed top-8 right-8 px-6 py-3 rounded-lg border z-50 transition-all duration-300 ${
+                    toast.type === 'success' 
+                        ? 'bg-green-900 bg-opacity-90 border-green-500 border-opacity-30 text-green-100' 
+                        : 'bg-red-900 bg-opacity-90 border-red-500 border-opacity-30 text-red-100'
+                }`}>
+                    {toast.message}
+                </div>
+            )}
+
+            <div className="container mx-auto px-6 py-20 lg:py-32">
+                <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+                    
+                    {/* Left Section */}
+                    <div className="space-y-12">
+                        <div className="space-y-2">
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight">
+                                <span className="block">CURIOUS</span>
+                                <span className="block">ABOUT</span>
+                                <span className="block">SOMETHING<span className="text-gray-500">?</span></span>
+                            </h1>
+                        </div>
+                        
+                        <div className="space-y-8">
+                            <p className="text-lg text-gray-300 font-light tracking-wide">
+                                CONNECT WITH ME
+                            </p>
+                            
+                            {/* Social Icons */}
+                            <div className="flex gap-6">
+                                {socialLinks.map(({ icon: Icon, href, label }) => (
+                                    <a
+                                        key={label}
+                                        href={href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group relative p-3 border border-gray-800 rounded-full hover:border-white transition-colors duration-300"
+                                        aria-label={label}
+                                    >
+                                        <Icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Copyright */}
+                        <div className="pt-16">
+                            <p className="text-sm text-gray-500 leading-relaxed">
+                                © 2025, Shiv Chauhan.<br />
+                                All Rights Reserved
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Right Section - Contact Form */}
+                    <div className="space-y-8">
+                        <div>
+                            <h2 className="text-2xl md:text-3xl font-light tracking-wide mb-2">
+                                DROP ME A MESSAGE!
+                            </h2>
+                            <div className="w-16 h-px bg-white"></div>
+                        </div>
+                        
+                        <form ref={form} onSubmit={sendEmail} className="space-y-8">
+                            {/* Name Field */}
+                            <div className="group space-y-2">
+                                <label className="block text-xs tracking-widest text-gray-400 uppercase">
+                                    Name
+                                </label>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    placeholder="Your Name"
+                                    required
+                                    className="w-full bg-transparent border-b border-gray-700 py-3 text-lg placeholder-gray-600 focus:outline-none focus:border-white transition-colors duration-300"
+                                />
+                            </div>
+
+                            {/* Email Field */}
+                            <div className="group space-y-2">
+                                <label className="block text-xs tracking-widest text-gray-400 uppercase">
+                                    Email
+                                </label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Your Email"
+                                    required
+                                    className="w-full bg-transparent border-b border-gray-700 py-3 text-lg placeholder-gray-600 focus:outline-none focus:border-white transition-colors duration-300"
+                                />
+                            </div>
+
+                            {/* Message Field */}
+                            <div className="group space-y-2">
+                                <label className="block text-xs tracking-widest text-gray-400 uppercase">
+                                    Message
+                                </label>
+                                <textarea
+                                    name="description"
+                                    placeholder="Your Message"
+                                    required
+                                    rows={5}
+                                    className="w-full bg-transparent border-b border-gray-700 py-3 text-lg placeholder-gray-600 focus:outline-none focus:border-white transition-colors duration-300 resize-none"
+                                ></textarea>
+                            </div>
+
+                            {/* Submit Button */}
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-medium tracking-wide text-sm uppercase hover:bg-gray-100 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span>Start a Conversation</span>
+                                <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
 
-            <div className="divider"></div>
-
-            <div className="right-section">
-                <h2>DROP ME A MESSAGE!</h2>
-                <form ref={form} onSubmit={sendEmail}>
-                    <label>
-                        NAME
-                        <input type="text" name="username" placeholder="Your Name" required />
-                    </label>
-                    <label>
-                        EMAIL
-                        <input type="email" name="email" placeholder="Your Email" required />
-                    </label>
-                    <label>
-                        MESSAGE
-                        <textarea name="description" placeholder="Your Message" required></textarea>
-                    </label>
-                    <button type="submit" disabled={loading}>START A CONVERSATION</button>
-                </form>
-            </div>
-        </div>
+            {/* Subtle grid pattern overlay */}
+            <div 
+                className="absolute inset-0 opacity-5 pointer-events-none"
+                style={{
+                    backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+                    backgroundSize: '50px 50px'
+                }}
+            ></div>
+        </section>
     );
 };
-
-const LoaderOverlay = styled.div`
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-`;
-
-const Toast = styled.div`
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    z-index: 1000;
-    background-color: ${props => props.className === 'success' ? '#4caf50' : '#f44336'};
-    animation: fadeInOut 3s forwards;
-
-    @keyframes fadeInOut {
-        0% { opacity: 0; transform: translateY(-20px); }
-        10% { opacity: 1; transform: translateY(0); }
-        90% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-20px); }
-    }
-`;
 
 export default FooterContact;

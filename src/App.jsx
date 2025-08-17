@@ -12,7 +12,6 @@ import BackgroundAudio from './components/BackgroundAudio';
 import ProjectPanel from './components/ProjectPanel';
 import useIsMobile from './hooks/useIsMobile'; // <-- Import custom hook
 import MobileOutro from './components/MobileOutro';
-import StackShowcase from './components/StackShowcase';
 
 function App() {
   const [showLoader, setShowLoader] = useState(true);
