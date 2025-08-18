@@ -1,17 +1,17 @@
-// App.jsx
-import { useEffect, useState } from 'react';
-import './App.css';
-import Hero from './components/Hero';
-import PostHero from './components/PostHero';
-import Projects from './components/Projects';
-import FooterContent from './components/FooterContent';
-import Stats from './components/Stats';
-import CustomCursor from './components/CustomCursor';
-import HomeLoader from './components/HomeLoader';
-import BackgroundAudio from './components/BackgroundAudio';
-import ProjectPanel from './components/ProjectPanel';
-import useIsMobile from './hooks/useIsMobile'; // <-- Import custom hook
-import MobileOutro from './components/MobileOutro';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Hero from "./components/Hero";
+import PostHero from "./components/PostHero";
+import Projects from "./components/Projects";
+import FooterContent from "./components/FooterContent";
+import Stats from "./components/Stats";
+import CustomCursor from "./components/CustomCursor";
+import HomeLoader from "./components/HomeLoader";
+import BackgroundAudio from "./components/BackgroundAudio";
+import ProjectPanel from "./components/ProjectPanel";
+import useIsMobile from "./hooks/useIsMobile";
+import MobileOutro from "./components/MobileOutro";
+import MobileFooterSection from "./components/MobileFooterSection";
 
 function App() {
   const [showLoader, setShowLoader] = useState(true);
@@ -23,6 +23,7 @@ function App() {
     const timer = setTimeout(() => {
       setShowLoader(false);
     }, 4000);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -38,12 +39,12 @@ function App() {
         <HomeLoader />
       ) : (
         <>
-          <CustomCursor />
+          {isMobile ? null : <CustomCursor />}
           <Hero isMuted={isMuted} setIsMuted={setIsMuted} />
-          <PostHero />
+          {isMobile ? null : <PostHero />}
           {isMobile ? <ProjectPanel /> : <Projects />}
           {isMobile ? <MobileOutro /> : <Stats />}
-          <FooterContent />
+          {isMobile ? <MobileFooterSection /> : <FooterContent />}
         </>
       )}
     </>
