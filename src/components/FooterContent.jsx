@@ -11,33 +11,6 @@ const FooterContact = () => {
         setLoading(true);
         setToast({ message: '', type: '' });
 
-        // You'll need to import emailjs and uncomment this section:
-        /*
-        emailjs.sendForm(
-            'shivchauhan',
-            'template_5nfkixy',
-            form.current,
-            '3Og7VoKZ9lJgv9k8h'
-        )
-            .then((result) => {
-                setLoading(false);
-                setToast({ message: 'Message sent successfully!', type: 'success' });
-                form.current.reset();
-                
-                setTimeout(() => {
-                    setToast({ message: '', type: '' });
-                }, 3000);
-            }, (error) => {
-                setLoading(false);
-                setToast({ message: 'Oops! Something went wrong.', type: 'error' });
-                
-                setTimeout(() => {
-                    setToast({ message: '', type: '' });
-                }, 3000);
-            });
-        */
-
-        // Temporary simulation for demo - remove when using emailjs
         setTimeout(() => {
             setLoading(false);
             setToast({ message: 'Message sent successfully!', type: 'success' });
@@ -52,12 +25,12 @@ const FooterContact = () => {
     const socialLinks = [
         { icon: Instagram, href: "https://www.instagram.com/__shiv.chauhan?igsh=NnJ5aWV1aTRnNnhr", label: "Instagram" },
         { icon: Linkedin, href: "https://www.linkedin.com/in/shiv-chauhan-7a8f05", label: "LinkedIn" },
-        { icon: Github, href: "https://github.com/shiv-835", label: "GitHub" },
+        { icon: Github, href: "https://github.com/viiiiiimmv", label: "GitHub" },
         { icon: Twitter, href: "https://x.com/iamshivchauhann?t=0s3quq5vbQUwe2U64NhSBw&s=09", label: "Twitter" }
     ];
 
     return (
-        <section id="contact" className="relative min-h-screen bg-black text-white">
+        <section id="contact" className="relative h-max bg-black text-white">
             {/* Loading Overlay */}
             {loading && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">

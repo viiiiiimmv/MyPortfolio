@@ -41,8 +41,8 @@ function App() {
           <CustomCursor />
           <Hero isMuted={isMuted} setIsMuted={setIsMuted} />
           <PostHero />
-          {isMobile ? <ProjectPanel /> : <Projects />} {/* Conditional rendering */}
-          {isMobile ? <MobileOutro /> : <Stats />} {/* Conditional rendering */}
+          {isMobile ? <ProjectPanel /> : <Projects />}
+          {isMobile ? <MobileOutro /> : <Stats />}
           <FooterContent />
         </>
       )}
