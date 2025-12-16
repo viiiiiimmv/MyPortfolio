@@ -1,5 +1,14 @@
 const projects = [
   {
+  title: "HealthAssist",
+  description:
+    "HealthAssist is a full-stack AI-powered health chatbot built with Flask, React.js, and TailwindCSS. It supports text and voice-based interactions, providing users with personalized healthcare assistance. Features include authentication (email & Google Sign-In), chat history, dark mode toggle, notifications, and a clean, responsive UI. The project showcases seamless integration of AI with modern web technologies for an engaging healthcare experience.",
+  image:
+    "https://res.cloudinary.com/ddyc6aljm/image/upload/v1755436115/Gemini_Generated_Image_52le5352le5352le_hfbzev.png",
+  skills: ["Flask", "React.js", "TailwindCSS", "OpenAI API", "MongoDB"],
+  links: [{ text: "Coming Very Soon", url: "#" }]
+  },
+  {
     title: "DevLink",
     description:
       "DevLink is a portfolio builder built with Next.js, TailwindCSS, MongoDB, and Cloudinary, deployed on Vercel. It enables developers to create and customize personal portfolios with ease.",
@@ -42,31 +51,31 @@ const projects = [
       { text: "GitHub", url: "https://github.com/viiiiiimmv/stunning-walls" }
     ]
   },
-  {
-    title: "Fit-Genius Hub",
-    description:
-      "FitGenius Hub is a fitness platform with AI-powered chatbot, nutrition plans, blogs, and interactive features. Built using HTML, CSS, and JavaScript for personalized health support.",
-    image:
-      "https://res.cloudinary.com/ddyc6aljm/image/upload/v1746796744/7_hk5w2q.png",
-    skills: ["HTML", "CSS", "JavaScript", "AI Chatbot"],
-    links: [
-      { text: "Try Website", url: "https://fitgeniushub.netlify.app/" },
-      { text: "Research Article", url: "https://www.irjet.net/archives/V11/i8/IRJET-V11I830.pdf" }
-    ]
-  },
-  {
-    title: "Real-time Facial Recognition",
-    description:
-      "A research-backed attendance automation system using Python, OpenCV, Haar Cascades, and LBPH algorithms. Designed for speed, accuracy, and contactless interaction in academic environments.",
-    image: "https://res.cloudinary.com/ddyc6aljm/image/upload/v1755516886/TESTING_IMAGE_v2pyc6.png",
-    skills: ["Python", "OpenCV", "Haar Cascades", "Machine Learning"],
-    links: [
-      {
-        text: "View Research Article",
-        url: "https://www.irjet.net/archives/V10/i5/IRJET-V10I5268.pdf"
-      }
-    ]
-  }
+  // {
+  //   title: "Fit-Genius Hub",
+  //   description:
+  //     "FitGenius Hub is a fitness platform with AI-powered chatbot, nutrition plans, blogs, and interactive features. Built using HTML, CSS, and JavaScript for personalized health support.",
+  //   image:
+  //     "https://res.cloudinary.com/ddyc6aljm/image/upload/v1746796744/7_hk5w2q.png",
+  //   skills: ["HTML", "CSS", "JavaScript", "AI Chatbot"],
+  //   links: [
+  //     { text: "Try Website", url: "https://fitgeniushub.netlify.app/" },
+  //     { text: "Research Article", url: "https://www.irjet.net/archives/V11/i8/IRJET-V11I830.pdf" }
+  //   ]
+  // },
+  // {
+  //   title: "Real-time Facial Recognition",
+  //   description:
+  //     "A research-backed attendance automation system using Python, OpenCV, Haar Cascades, and LBPH algorithms. Designed for speed, accuracy, and contactless interaction in academic environments.",
+  //   image: "https://res.cloudinary.com/ddyc6aljm/image/upload/v1755516886/TESTING_IMAGE_v2pyc6.png",
+  //   skills: ["Python", "OpenCV", "Haar Cascades", "Machine Learning"],
+  //   links: [
+  //     {
+  //       text: "View Research Article",
+  //       url: "https://www.irjet.net/archives/V10/i5/IRJET-V10I5268.pdf"
+  //     }
+  //   ]
+  // }
 ];
 
 export default projects;
