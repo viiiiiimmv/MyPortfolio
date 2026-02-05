@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ProblemStatsChart from './ProblemStatsChart';
 import images from '../assets/data/imageData';
-import { FaInstagram, FaDownload, FaCoffee, FaCamera } from 'react-icons/fa';
+import { FaInstagram, FaDownload, FaCoffee, FaCamera, FaGlobe} from 'react-icons/fa';
 
 const handleDownload = () => {
   const link = document.createElement('a');
@@ -129,6 +129,16 @@ const Stats = () => {
                 <FaInstagram className="text-white text-xl group-hover/insta:scale-110 transition-transform duration-300" />
                 <span className="text-white font-light tracking-wider">@stealthy.shutter</span>
               </div>
+
+                <div
+                    className="group/site flex items-center gap-4 cursor-pointer bg-black/60 backdrop-blur-xl px-6 py-3 rounded-full border border-white/20 hover:bg-black/80 transition-all duration-300"
+                    onClick={() => window.open('https://stealthyshutter.netlify.app', '_blank')}
+                >
+                    <FaGlobe className="text-white text-xl group-hover/site:scale-110 transition-transform duration-300" />
+                    <span className="text-white font-light tracking-wider">
+    stealthyshutter.netlify.app
+  </span>
+                </div>
 
 
             </motion.div>

@@ -15,7 +15,7 @@ const projects = [
     image:
       "https://res.cloudinary.com/ddyc6aljm/image/upload/v1755436115/Gemini_Generated_Image_52le5352le5352le_hfbzev.png",
     skills: ["Next.js", "TailwindCSS", "MongoDB", "Cloudinary", "Vercel"],
-    links: [{ text: "Coming Very Soon", url: "#" }]
+    links: [{ text: "Visit DevLink", url: "https://devlink-041233.vercel.app" }]
   },
   {
     title: "Quantum Machine Learning",

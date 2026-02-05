@@ -12,12 +12,13 @@ import ProjectPanel from "./components/ProjectPanel";
 import useIsMobile from "./hooks/useIsMobile";
 import MobileOutro from "./components/MobileOutro";
 import MobileFooterSection from "./components/MobileFooterSection";
+import Terminal from "./assets/Terminal.jsx";
 
 function App() {
   const [showLoader, setShowLoader] = useState(true);
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
-  const isMobile = useIsMobile(); // <-- Get device type
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,7 +42,7 @@ function App() {
         <>
           {isMobile ? null : <CustomCursor />}
           <Hero isMuted={isMuted} setIsMuted={setIsMuted} />
-          {isMobile ? null : <PostHero />}
+            <Terminal/>
           {isMobile ? <ProjectPanel /> : <Projects />}
           {isMobile ? <MobileOutro /> : <Stats />}
           {isMobile ? <MobileFooterSection /> : <FooterContent />}
