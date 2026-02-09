@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
-import leetcodeStats from "../assets/data/leetcodeStats";
+import useLeetCodeStats from "../hooks/useLeetCodeStats";
+import {
+  buildLeetCodeProfileUrl,
+  extractLeetCodeHandle,
+} from "../utils/leetcode";
 
 // Monochrome color scheme with subtle gradients
 const COLORS = ["#ffffff", "#a1a1aa", "#525252"]; // White, light gray, dark gray
@@ -20,25 +23,46 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-const ProblemStatsChart = () => {
+const formatLastUpdated = (value) => {
+  if (!value) return "Waiting for sync";
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return "Waiting for sync";
+
+  return `Updated ${parsed.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  })}`;
+};
+
+const ProblemStatsChart = ({ profile = "https://leetcode.com/u/viii-iii-mmv/" }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  
-  const totalProblems = leetcodeStats.reduce((sum, entry) => sum + entry.count, 0);
+  const username = useMemo(() => extractLeetCodeHandle(profile), [profile]);
+  const profileUrl = useMemo(() => buildLeetCodeProfileUrl(username), [username]);
+
+  const {
+    stats,
+    totalProblems,
+    isLoading,
+    isRefreshing,
+    error,
+    source,
+    lastUpdated,
+  } = useLeetCodeStats(username);
+
+  const safeTotalProblems = Math.max(1, totalProblems);
+  const statusLabel = useMemo(() => {
+    if (!username) return "Invalid LeetCode profile";
+    if (isLoading) return "Syncing latest stats...";
+    if (isRefreshing) return "Refreshing stats...";
+    if (error) return `Using cached stats (${source})`;
+    return `${formatLastUpdated(lastUpdated)} • ${source}`;
+  }, [error, isLoading, isRefreshing, lastUpdated, source, username]);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="w-full"
-    >
+    <div className="w-full">
       {/* Header Section */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.6 }}
-        className="mb-8"
-      >
+      <div className="mb-8">
         <h2 className="text-2xl font-thin text-white tracking-[0.2em] mb-4">
           CODE. SOLVE. REPEAT.
         </h2>
@@ -46,29 +70,19 @@ const ProblemStatsChart = () => {
         <p className="text-xs text-gray-400 tracking-[0.15em] uppercase">
           Problem Solving Journey
         </p>
-      </motion.div>
+      </div>
 
       {/* Main Stats Container */}
       <div className="flex flex-col lg:flex-row items-center gap-8 mb-8">
         
         {/* Minimalist Pie Chart */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="relative"
-        >
+        <div className="relative">
           {/* Center total count */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-                className="text-3xl font-thin text-white mb-1"
-              >
+              <div className="text-3xl font-thin text-white mb-1">
                 {totalProblems}
-              </motion.div>
+              </div>
               <div className="text-xs text-gray-400 tracking-widest uppercase">
                 Solved
               </div>
@@ -77,7 +91,7 @@ const ProblemStatsChart = () => {
 
           <PieChart width={220} height={220}>
             <Pie
-              data={leetcodeStats}
+              data={stats}
               dataKey="count"
               nameKey="difficulty"
               cx="50%"
@@ -88,7 +102,7 @@ const ProblemStatsChart = () => {
               cornerRadius={0}
               stroke="none"
             >
-              {leetcodeStats.map((entry, index) => (
+              {stats.map((entry, index) => (
                 <Cell 
                   key={`cell-${index}`} 
                   fill={hoveredIndex === index ? HOVER_COLORS[index] : COLORS[index]}
@@ -98,19 +112,16 @@ const ProblemStatsChart = () => {
             </Pie>
             <Tooltip content={<CustomTooltip />} />
           </PieChart>
-        </motion.div>
+        </div>
 
         {/* Elegant Stats List */}
         <div className="flex flex-col gap-6 flex-1 max-w-xs">
-          {leetcodeStats.map((entry, index) => {
-            const percentage = ((entry.count / totalProblems) * 100).toFixed(1);
+          {stats.map((entry, index) => {
+            const percentage = ((entry.count / safeTotalProblems) * 100).toFixed(1);
             
             return (
-              <motion.div
+              <div
                 key={entry.difficulty}
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 className="group cursor-pointer"
@@ -139,33 +150,27 @@ const ProblemStatsChart = () => {
                 
                 {/* Progress bar */}
                 <div className="w-full h-px bg-gray-800 overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${percentage}%` }}
-                    transition={{ delay: 0.8 + index * 0.1, duration: 1, ease: "easeOut" }}
+                  <div
                     className="h-full transition-all duration-300"
-                    style={{ backgroundColor: COLORS[index] }}
+                    style={{ width: `${percentage}%`, backgroundColor: COLORS[index] }}
                   />
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
       </div>
 
       {/* Minimalist Footer */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.6 }}
-        className="pt-6 border-t border-gray-800"
-      >
-        <motion.a
-          href="https://leetcode.com/shivchauhan"
+      <div className="pt-6 border-t border-gray-800">
+        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">
+          {statusLabel}
+        </p>
+        <a
+          href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="group inline-flex items-center gap-3 text-gray-400 hover:text-white transition-colors duration-300"
-          whileHover={{ x: 4 }}
         >
           {/* LeetCode icon replacement with geometric shape */}
           <div className="w-5 h-5 border border-gray-600 group-hover:border-white transition-colors duration-300 flex items-center justify-center">
@@ -178,9 +183,9 @@ const ProblemStatsChart = () => {
           
           <div className="w-8 h-px bg-gray-600 group-hover:bg-white group-hover:w-12 transition-all duration-300" />
           <div className="w-1.5 h-1.5 border-t border-r border-gray-600 group-hover:border-white rotate-45 transition-all duration-300" />
-        </motion.a>
-      </motion.div>
-    </motion.div>
+        </a>
+      </div>
+    </div>
   );
 };
 

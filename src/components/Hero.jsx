@@ -87,29 +87,6 @@ export default function Hero({ isMuted, setIsMuted }) {
       ref={heroRef}
       className="relative h-screen max-h-screen w-screen overflow-hidden bg-black text-white flex flex-col"
     >
-      {/* Animated Grid */}
-      <div
-        className="absolute inset-0 opacity-5 transition-transform duration-700"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
-          transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`
-        }}
-      />
-
-      {/* Noise */}
-      <div
-        className="absolute inset-0 opacity-10 mix-blend-overlay"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-          backgroundSize: '20px 20px',
-        }}
-      />
-
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-8 lg:px-12 py-6 shrink-0">
         <div className="flex items-center space-x-3 text-gray-400 font-mono text-sm">

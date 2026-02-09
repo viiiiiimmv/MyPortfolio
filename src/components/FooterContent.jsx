@@ -185,16 +185,6 @@ const FooterContact = () => {
           </div>
         </div>
       </div>
-
-      {/* Subtle grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-5 pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-          backgroundSize: "50px 50px",
-        }}
-      ></div>
     </section>
   );
 };

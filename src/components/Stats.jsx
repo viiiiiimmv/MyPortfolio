@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ProblemStatsChart from './ProblemStatsChart';
 import images from '../assets/data/imageData';
-import { FaInstagram, FaDownload, FaCoffee, FaCamera, FaGlobe} from 'react-icons/fa';
+import { FaInstagram, FaDownload, FaCamera, FaGlobe} from 'react-icons/fa';
+
+const LEETCODE_PROFILE_URL = "https://leetcode.com/u/viii-iii-mmv/";
 
 const handleDownload = () => {
   const link = document.createElement('a');
@@ -29,17 +31,6 @@ const Stats = () => {
 
   return (
     <section className="relative w-full min-h-screen bg-black overflow-hidden">
-      {/* Geometric background pattern */}
-      <div className="absolute inset-0 opacity-3">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 3px 3px, white 1px, transparent 0)',
-            backgroundSize: '80px 80px'
-          }}
-        />
-      </div>
-
       {/* Main content container */}
       <div className="relative z-10 w-full min-h-screen flex flex-col lg:flex-row">
         
@@ -175,7 +166,7 @@ const Stats = () => {
             </div>
             
             <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl border border-white/10 p-8 hover:border-white/20 transition-all duration-500">
-              <ProblemStatsChart username="shivchauhan" />
+              <ProblemStatsChart profile={LEETCODE_PROFILE_URL} />
             </div>
           </motion.div>
 

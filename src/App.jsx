@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Hero from "./components/Hero";
-import PostHero from "./components/PostHero";
 import Projects from "./components/Projects";
 import FooterContent from "./components/FooterContent";
 import Stats from "./components/Stats";
@@ -16,7 +15,7 @@ import Terminal from "./assets/Terminal.jsx";
 
 function App() {
   const [showLoader, setShowLoader] = useState(true);
-  const [volume, setVolume] = useState(0.5);
+  const volume = 0.5;
   const [isMuted, setIsMuted] = useState(false);
   const isMobile = useIsMobile();
 
@@ -41,8 +40,12 @@ function App() {
       ) : (
         <>
           {isMobile ? null : <CustomCursor />}
+          <div className="global-grid-overlay" aria-hidden="true" />
+          {isMobile ? null : (
+            <div className="global-spotlight-overlay" aria-hidden="true" />
+          )}
           <Hero isMuted={isMuted} setIsMuted={setIsMuted} />
-            <Terminal/>
+          <Terminal />
           {isMobile ? <ProjectPanel /> : <Projects />}
           {isMobile ? <MobileOutro /> : <Stats />}
           {isMobile ? <MobileFooterSection /> : <FooterContent />}

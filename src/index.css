@@ -9,3 +9,44 @@ body, html {
 * {
   scroll-behavior: smooth;
 }
+
+:root {
+  --cursor-x: 50vw;
+  --cursor-y: 50vh;
+  --spotlight-opacity: 0;
+}
+
+.global-grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.global-spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+  opacity: var(--spotlight-opacity);
+  background:
+    radial-gradient(
+      400px circle at var(--cursor-x) var(--cursor-y),
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.06) 28%,
+      transparent 65%
+    );
+  mix-blend-mode: screen;
+  transition: opacity 160ms ease;
+}
+
+@media (max-width: 768px) {
+  .global-grid-overlay {
+    opacity: 0.2;
+  }
+}

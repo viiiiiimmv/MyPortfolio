@@ -1,250 +1,233 @@
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import projects from "../assets/data/projectsData";
+
+const AUTO_ROTATE_MS = 5200;
+
+const wrapIndex = (value, total) => {
+  if (total <= 0) return 0;
+  return (value + total) % total;
+};
+
+const getCircularOffset = (index, activeIndex, total) => {
+  let offset = index - activeIndex;
+  const half = total / 2;
+
+  if (offset > half) offset -= total;
+  if (offset < -half) offset += total;
+
+  return offset;
+};
 
 export default function ProjectsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const total = projects.length;
+  const activeProject = projects[activeIndex];
 
   useEffect(() => {
-    if (isHovered) return;
+    if (isPaused || total <= 1) return undefined;
+
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % projects.length);
-    }, 7000); // Increased duration to 12 seconds
+      setActiveIndex((prev) => wrapIndex(prev + 1, total));
+    }, AUTO_ROTATE_MS);
+
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isPaused, total]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+        setActiveIndex((prev) => wrapIndex(prev + 1, total));
+      }
+
+      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        setActiveIndex((prev) => wrapIndex(prev - 1, total));
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [total]);
+
+  if (!activeProject) return null;
 
   return (
-    <section className="relative w-full h-screen flex overflow-hidden bg-black" id="projects">
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
+    <section
+      id="projects"
+      className="relative min-h-screen overflow-hidden bg-black text-white"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(900px circle at 50% 0%, rgba(255,255,255,0.14), transparent 48%)",
+        }}
+      />
 
-      <motion.div
-        initial={{ x: -200, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="relative z-10 w-96 h-full bg-gradient-to-b from-gray-950 via-black to-gray-950 border-r border-gray-800 flex flex-col justify-center"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className="absolute left-20 top-1/2 -translate-y-1/2 w-px h-3/4 bg-gradient-to-b from-transparent via-white to-transparent" />
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 py-16 md:px-10">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.28em] text-neutral-500">
+              Projects / Interactive Deck
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
+              Explore my work in motion.
+            </h2>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="absolute top-16 left-8 right-8"
-        >
-          <h2 className="text-3xl font-thin text-white tracking-[0.3em] mb-2">
-            PROJECTS
-          </h2>
-          <div className="w-16 h-px bg-white"></div>
-          <p className="text-xs text-gray-400 mt-3 tracking-widest">
-            SELECTED WORKS
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-neutral-600">
+            {isPaused ? "Deck paused on hover" : "Deck auto cycling"}
           </p>
-        </motion.div>
+        </div>
 
-        <div className="flex flex-col items-start pl-8 gap-12">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className="cursor-pointer relative group flex items-center w-full"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8 + index * 0.15, duration: 0.6 }}
-              whileHover={{ x: 8 }}
-            >
-              <div
-                className={`relative w-6 h-6 mr-8 transition-all duration-500 ${
-                  activeIndex === index
-                    ? "bg-white shadow-lg shadow-white/50"
-                    : "bg-gray-700 group-hover:bg-gray-500"
+        <div className="relative mx-auto h-[23rem] w-full max-w-6xl md:h-[27rem]">
+          {projects.map((project, index) => {
+            const offset = getCircularOffset(index, activeIndex, total);
+            const distance = Math.abs(offset);
+            const isActive = offset === 0;
+            const shouldRender = distance <= 2;
+
+            if (!shouldRender) return null;
+
+            const x = offset * 44;
+            const y = distance * 16;
+            const scale = isActive ? 1 : Math.max(0.64, 1 - distance * 0.16);
+            const opacity = isActive ? 1 : Math.max(0.22, 0.82 - distance * 0.26);
+            const blur = isActive ? 0 : distance * 1.5;
+            const rotate = offset * -7;
+
+            return (
+              <button
+                key={project.title}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={`absolute left-1/2 top-0 h-full w-[min(86vw,820px)] overflow-hidden rounded-2xl border text-left transition-[transform,opacity,filter,border-color] duration-500 ${
+                  isActive
+                    ? "border-white/50 shadow-[0_30px_70px_rgba(0,0,0,0.55)]"
+                    : "border-neutral-800"
                 }`}
                 style={{
-                  clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
+                  transform: `translate3d(calc(-50% + ${x}%), ${y}px, 0) scale(${scale}) rotate(${rotate}deg)`,
+                  opacity,
+                  filter: `grayscale(${isActive ? 30 : 100}%) blur(${blur}px)`,
+                  zIndex: 100 - distance,
                 }}
-              />
+                aria-label={`View ${project.title}`}
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="h-full w-full object-cover"
+                />
 
-              <div className="flex-1">
-                <motion.h3
-                  className={`text-lg font-light tracking-wider transition-all duration-300 ${
-                    activeIndex === index
-                      ? "text-white"
-                      : "text-gray-400 group-hover:text-gray-200"
-                  }`}
-                >
-                  {project.title}
-                </motion.h3>
-                <p className="text-xs text-gray-600 mt-1 tracking-widest uppercase">
-                  {project.skills[0]} • {project.skills.length} TECHS
-                </p>
-              </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/58 to-black/35" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/62 via-transparent to-black/45" />
 
-              <div
-                className={`absolute left-3 w-5 h-px transition-all duration-500 ${
-                  activeIndex === index ? "bg-white" : "bg-gray-700"
-                }`}
-              />
-            </motion.div>
-          ))}
+                <div className="absolute left-5 top-5 rounded-full border border-white/25 bg-black/55 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-300">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+
+                <div className="absolute bottom-5 left-5 right-5">
+                  <h3 className="text-2xl font-semibold leading-tight md:text-4xl">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-neutral-300 md:text-base">
+                    {isActive
+                      ? project.description.slice(0, 130) + "..."
+                      : project.skills.slice(0, 2).join(" / ")}
+                  </p>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="absolute bottom-16 left-8 right-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="flex-1 h-px bg-gray-800">
-              <motion.div
-                className="h-full bg-white origin-left"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: isHovered ? 0 : 1 }}
-                transition={{ duration: 7, ease: "linear" }}
-                key={activeIndex}
-              />
-            </div>
-            <span className="text-xs text-gray-500 tabular-nums">
-              {String(activeIndex + 1).padStart(2, "0")}/
-              {String(projects.length).padStart(2, "0")}
-            </span>
+        <div className="mt-7 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => setActiveIndex((prev) => wrapIndex(prev - 1, total))}
+            className="rounded-full border border-neutral-700 px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-neutral-300 transition-colors hover:border-white hover:text-white"
+          >
+            Prev
+          </button>
+
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-500">
+            {String(activeIndex + 1).padStart(2, "0")} /{" "}
+            {String(total).padStart(2, "0")}
+          </span>
+
+          <button
+            type="button"
+            onClick={() => setActiveIndex((prev) => wrapIndex(prev + 1, total))}
+            className="rounded-full border border-neutral-700 px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-neutral-300 transition-colors hover:border-white hover:text-white"
+          >
+            Next
+          </button>
+        </div>
+
+        <div className="mx-auto mt-7 w-full max-w-5xl rounded-2xl border border-neutral-800 bg-neutral-950/70 p-6 md:p-7">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
+              {activeProject.title}
+            </h3>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-neutral-500">
+              Active Project
+            </p>
           </div>
-          <p className="text-xs text-gray-600 tracking-widest">
-            {isHovered ? "HOVER TO PAUSE" : "AUTO CYCLING"}
+
+          <p className="mt-4 max-w-4xl text-sm leading-relaxed text-neutral-300 md:text-base">
+            {activeProject.description}
           </p>
-        </div>
-      </motion.div>
 
-      <div className="flex-1 h-full flex items-center justify-center relative overflow-hidden">
-        <motion.div
-          key={activeIndex}
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="absolute inset-0"
-        >
-          <img
-            src={projects[activeIndex].image}
-            alt="background"
-            className="w-full h-full object-cover filter grayscale"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
-        </motion.div>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {activeProject.skills.map((skill) => (
+              <span
+                key={`${activeProject.title}-${skill}`}
+                className="rounded-full border border-neutral-700 px-3 py-1 font-mono text-xs uppercase tracking-[0.14em] text-neutral-300"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
 
-        <motion.div
-          key={activeIndex}
-          initial={{ opacity: 0, y: 100, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{
-            duration: 1,
-            delay: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          className="relative z-10 w-full max-w-6xl h-full flex items-center justify-center p-16"
-        >
-          <div className="w-full max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="flex items-center gap-8 mb-8"
-            >
-              <div className="text-8xl font-thin text-white/20 leading-none">
-                {String(activeIndex + 1).padStart(2, "0")}
-              </div>
-              <div>
-                <span className="text-sm font-light text-gray-400 tracking-[0.2em] uppercase block mb-2">
-                  Featured Project
-                </span>
-                <div className="w-20 h-px bg-white"></div>
-              </div>
-            </motion.div>
+          <div className="mt-7 flex flex-wrap gap-3">
+            {activeProject.links.map((link) => {
+              const isDisabled = !link.url || link.url === "#";
 
-            <motion.h1
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="text-6xl md:text-7xl font-thin text-white mb-8 leading-tight tracking-wide"
-            >
-              {projects[activeIndex].title}
-            </motion.h1>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.8 }}
-              className="mb-12"
-            >
-              <p className="text-xl text-gray-300 leading-relaxed max-w-3xl font-light tracking-wide">
-                {projects[activeIndex].description}
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="mb-16"
-            >
-              <h4 className="text-sm text-gray-500 tracking-[0.2em] uppercase mb-6">
-                Technologies
-              </h4>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl">
-                {projects[activeIndex].skills.map((skill, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.4 + i * 0.1, duration: 0.5 }}
-                    className="group"
+              if (isDisabled) {
+                return (
+                  <span
+                    key={`${activeProject.title}-${link.text}`}
+                    className="inline-flex items-center rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-2 text-sm text-neutral-500"
                   >
-                    <div className="w-full h-16 border border-gray-700 flex items-center justify-center hover:border-white hover:bg-white transition-all duration-300">
-                      <span className="text-sm font-light tracking-wider text-white group-hover:text-black transition-colors duration-300">
-                        {skill}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+                    {link.text}
+                  </span>
+                );
+              }
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.6, duration: 0.8 }}
-              className="flex gap-8"
-            >
-              {projects[activeIndex].links.map((link, i) => (
-                <motion.a
-                  key={i}
+              return (
+                <a
+                  key={`${activeProject.title}-${link.text}`}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ x: 8, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group relative"
+                  className="inline-flex items-center rounded-lg border border-neutral-600 px-4 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
                 >
-                  <div className="flex items-center gap-4 py-4 pr-8 border-b border-gray-700 group-hover:border-white transition-colors duration-300">
-                    <span className="text-lg font-light text-white tracking-wider">
-                      {link.text}
-                    </span>
-                    <div className="w-8 h-px bg-gray-700 group-hover:bg-white transition-colors duration-300 group-hover:w-12" />
-                    <div className="w-2 h-2 border-t border-r border-gray-700 group-hover:border-white rotate-45 transition-all duration-300" />
-                  </div>
-                </motion.a>
-              ))}
-            </motion.div>
+                  {link.text}
+                </a>
+              );
+            })}
           </div>
-        </motion.div>
+        </div>
 
-        <div className="absolute top-20 right-20 w-px h-20 bg-gradient-to-b from-transparent via-white/50 to-transparent" />
-        <div className="absolute bottom-20 right-20 w-20 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+        <p className="mt-6 text-center font-mono text-xs uppercase tracking-[0.18em] text-neutral-600">
+          Use arrow keys, side cards, or prev/next.
+        </p>
       </div>
+
     </section>
   );
 }
