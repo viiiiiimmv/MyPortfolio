@@ -6,7 +6,7 @@ const projects = [
   image:
     "https://res.cloudinary.com/ddyc6aljm/image/upload/v1755436115/Gemini_Generated_Image_52le5352le5352le_hfbzev.png",
   skills: ["Flask", "React.js", "TailwindCSS", "OpenAI API", "MongoDB"],
-  links: [{ text: "Coming Very Soon", url: "#" }]
+  links: [{ text: "Visti HealthAssist", url: "https://health-assist-chatbot-viiiiiimmv.vercel.app/" }]
   },
   {
     title: "DevLink",
@@ -15,7 +15,7 @@ const projects = [
     image:
       "https://res.cloudinary.com/ddyc6aljm/image/upload/v1755436115/Gemini_Generated_Image_52le5352le5352le_hfbzev.png",
     skills: ["Next.js", "TailwindCSS", "MongoDB", "Cloudinary", "Vercel"],
-    links: [{ text: "Visit DevLink", url: "https://devlink-041233.vercel.app" }]
+    links: [{ text: "Visit DevLink", url: "https://devlink-viiiiiimmv.vercel.app" }]
   },
   {
     title: "Quantum Machine Learning",
@@ -37,7 +37,7 @@ const projects = [
     image:
       "https://res.cloudinary.com/ddyc6aljm/image/upload/v1746796742/1_zw7ajc.png",
     skills: ["Express.js","EJS", "Node.js", "MongoDB", "Tailwind", "Cloudinary"],
-    links: [{ text: "Live Demo", url: "http://wanderlust-gvcs.onrender.com/" }]
+    links: [{ text: "Live Demo", url: "https://wanderlust-viiiiiimmv.vercel.app/" }]
   },
   {
     title: "Stunning Walls",
