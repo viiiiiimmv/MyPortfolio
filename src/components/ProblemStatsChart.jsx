@@ -43,6 +43,7 @@ const ProblemStatsChart = ({ profile = "https://leetcode.com/u/viii-iii-mmv/" })
   const {
     stats,
     totalProblems,
+    displayTotalProblems,
     isLoading,
     isRefreshing,
     error,
@@ -81,7 +82,7 @@ const ProblemStatsChart = ({ profile = "https://leetcode.com/u/viii-iii-mmv/" })
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <div className="text-3xl font-thin text-white mb-1">
-                {totalProblems}
+                {displayTotalProblems}
               </div>
               <div className="text-xs text-gray-400 tracking-widest uppercase">
                 Solved

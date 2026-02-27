@@ -41,6 +41,16 @@ const normalizeStats = (value) => {
 };
 
 const FALLBACK_STATS = normalizeStats(fallbackStats) ?? DEFAULT_DIFFICULTY_STATS;
+const FALLBACK_TOTAL = FALLBACK_STATS.reduce(
+  (sum, entry) => sum + Number(entry.count || 0),
+  0,
+);
+
+const normalizeTotalSolved = (value, minimum = 0) => {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) return null;
+  return Math.max(minimum, parsed);
+};
 
 const readCache = (key) => {
   try {
@@ -51,8 +61,11 @@ const readCache = (key) => {
     const normalized = normalizeStats(parsed?.stats);
     if (!normalized) return null;
 
+    const sum = normalized.reduce((total, entry) => total + Number(entry.count || 0), 0);
+
     return {
       stats: normalized,
+      totalSolved: normalizeTotalSolved(parsed?.totalSolved, sum) ?? sum,
       updatedAt: parsed?.updatedAt || null,
       source: parsed?.source || "cache",
     };
@@ -67,6 +80,7 @@ const writeCache = (key, payload) => {
       key,
       JSON.stringify({
         stats: payload.stats,
+        totalSolved: payload.totalSolved,
         updatedAt: payload.updatedAt,
         source: payload.source,
       }),
@@ -78,6 +92,7 @@ const writeCache = (key, payload) => {
 
 export default function useLeetCodeStats(username, refreshIntervalMs = DEFAULT_REFRESH_MS) {
   const [stats, setStats] = useState(FALLBACK_STATS);
+  const [totalSolved, setTotalSolved] = useState(FALLBACK_TOTAL);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState("");
@@ -88,6 +103,7 @@ export default function useLeetCodeStats(username, refreshIntervalMs = DEFAULT_R
   useEffect(() => {
     if (!username) {
       setStats(FALLBACK_STATS);
+      setTotalSolved(FALLBACK_TOTAL);
       setIsLoading(false);
       setIsRefreshing(false);
       setError("Username is missing");
@@ -101,11 +117,13 @@ export default function useLeetCodeStats(username, refreshIntervalMs = DEFAULT_R
     const cached = readCache(cacheKey);
     if (cached) {
       setStats(cached.stats);
+      setTotalSolved(cached.totalSolved);
       setSource(cached.source);
       setLastUpdated(cached.updatedAt);
       setIsLoading(false);
     } else {
       setStats(FALLBACK_STATS);
+      setTotalSolved(FALLBACK_TOTAL);
       setSource("fallback");
       setLastUpdated(null);
       setIsLoading(true);
@@ -134,13 +152,18 @@ export default function useLeetCodeStats(username, refreshIntervalMs = DEFAULT_R
           throw new Error("Received invalid stats");
         }
 
+        const sum = normalized.reduce((acc, entry) => acc + Number(entry.count || 0), 0);
+        const normalizedTotalSolved = normalizeTotalSolved(latest.totalSolved, sum) ?? sum;
+
         setStats(normalized);
+        setTotalSolved(normalizedTotalSolved);
         setSource(latest.source);
         setLastUpdated(latest.updatedAt);
         setError("");
         lastSyncRef.current = Date.now();
         writeCache(cacheKey, {
           stats: normalized,
+          totalSolved: normalizedTotalSolved,
           updatedAt: latest.updatedAt,
           source: latest.source,
         });
@@ -184,10 +207,12 @@ export default function useLeetCodeStats(username, refreshIntervalMs = DEFAULT_R
     () => stats.reduce((sum, entry) => sum + Number(entry.count || 0), 0),
     [stats],
   );
+  const displayTotalProblems = Math.max(totalProblems, totalSolved || 0);
 
   return {
     stats,
     totalProblems,
+    displayTotalProblems,
     isLoading,
     isRefreshing,
     error,

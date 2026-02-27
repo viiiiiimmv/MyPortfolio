@@ -21,6 +21,9 @@ const buildDifficultyStats = (easy, medium, hard) => {
   ];
 };
 
+const sumDifficultyCounts = (stats) =>
+  stats.reduce((sum, entry) => sum + Number(entry?.count || 0), 0);
+
 const parseSubmissionArray = (entries) => {
   if (!Array.isArray(entries)) return null;
 
@@ -30,21 +33,43 @@ const parseSubmissionArray = (entries) => {
     return accumulator;
   }, {});
 
-  return buildDifficultyStats(
+  const stats = buildDifficultyStats(
     difficultyMap.easy ?? null,
     difficultyMap.medium ?? null,
     difficultyMap.hard ?? null,
   );
+
+  if (!stats) return null;
+
+  const sum = sumDifficultyCounts(stats);
+  const allCount = toSafeNumber(difficultyMap.all);
+  const totalSolved = allCount !== null && allCount >= sum ? allCount : sum;
+
+  return { stats, totalSolved };
 };
 
 const parseSolvedShape = (payload) => {
   if (!payload || typeof payload !== "object") return null;
 
-  return buildDifficultyStats(
+  const stats = buildDifficultyStats(
     toSafeNumber(payload.easySolved ?? payload.easy ?? payload.totalEasy),
     toSafeNumber(payload.mediumSolved ?? payload.medium ?? payload.totalMedium),
     toSafeNumber(payload.hardSolved ?? payload.hard ?? payload.totalHard),
   );
+
+  if (!stats) return null;
+
+  const sum = sumDifficultyCounts(stats);
+  const explicitTotal = toSafeNumber(
+    payload.totalSolved ??
+      payload.total ??
+      payload["total solved"] ??
+      payload.solvedProblem ??
+      payload.solvedProblems,
+  );
+  const totalSolved = explicitTotal !== null && explicitTotal >= sum ? explicitTotal : sum;
+
+  return { stats, totalSolved };
 };
 
 const fetchJson = async (url, options = {}) => {
@@ -54,6 +79,7 @@ const fetchJson = async (url, options = {}) => {
   try {
     const response = await fetch(url, {
       ...options,
+      cache: "no-store",
       signal: controller.signal,
     });
 
@@ -94,14 +120,15 @@ const fetchFromLeetCodeGraphQL = async (username) => {
   });
 
   const submissionStats = payload?.data?.matchedUser?.submitStatsGlobal?.acSubmissionNum;
-  const stats = parseSubmissionArray(submissionStats);
+  const parsed = parseSubmissionArray(submissionStats);
 
-  if (!stats) {
+  if (!parsed) {
     throw new Error("Unexpected GraphQL payload");
   }
 
   return {
-    stats,
+    stats: parsed.stats,
+    totalSolved: parsed.totalSolved,
     source: "leetcode-graphql",
     updatedAt: new Date().toISOString(),
   };
@@ -121,15 +148,19 @@ const MIRROR_SOURCES = [
 ];
 
 const fetchFromMirrorSource = async (username, source) => {
-  const payload = await fetchJson(source.resolveUrl(username));
-  const stats = parseSolvedShape(payload);
+  const url = new URL(source.resolveUrl(username));
+  url.searchParams.set("_", String(Date.now()));
 
-  if (!stats) {
+  const payload = await fetchJson(url.toString());
+  const parsed = parseSolvedShape(payload);
+
+  if (!parsed) {
     throw new Error(`Unexpected payload from ${source.name}`);
   }
 
   return {
-    stats,
+    stats: parsed.stats,
+    totalSolved: parsed.totalSolved,
     source: source.name,
     updatedAt: new Date().toISOString(),
   };
