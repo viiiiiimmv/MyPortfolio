@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Instagram,
   Linkedin,
@@ -8,10 +8,23 @@ import {
   Loader2,
 } from "lucide-react";
 
+const CTA_PHRASES = [
+  "Curious about something?",
+  "Want to connect?",
+  "Have an idea to build?",
+  "Need a frontend partner?",
+  "Looking for collaboration?",
+  "Ready to work together?",
+  "Let's start a project?",
+];
+
 const FooterContact = () => {
   const form = useRef();
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ message: "", type: "" });
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -48,6 +61,32 @@ const FooterContact = () => {
     },
   ];
 
+  useEffect(() => {
+    const currentPhrase = CTA_PHRASES[phraseIndex];
+    const typingSpeed = isDeleting ? 45 : 85;
+    const holdDelay = 1300;
+    const resetDelay = 260;
+    let timeout;
+
+    if (!isDeleting && typedText === currentPhrase) {
+      timeout = setTimeout(() => setIsDeleting(true), holdDelay);
+    } else if (isDeleting && typedText === "") {
+      timeout = setTimeout(() => {
+        setIsDeleting(false);
+        setPhraseIndex((prev) => (prev + 1) % CTA_PHRASES.length);
+      }, resetDelay);
+    } else {
+      timeout = setTimeout(() => {
+        const nextLength = isDeleting
+          ? typedText.length - 1
+          : typedText.length + 1;
+        setTypedText(currentPhrase.slice(0, nextLength));
+      }, typingSpeed);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [typedText, isDeleting, phraseIndex]);
+
   return (
     <section id="contact" className="relative h-max bg-black text-white">
       {/* Loading Overlay */}
@@ -78,12 +117,10 @@ const FooterContact = () => {
           {/* Left Section */}
           <div className="space-y-12">
             <div className="space-y-2">
-              {/* 👇 FIXED heading sizes */}
-              <h1 className="text-3xl md:text-5xl lg:text-7xl font-light tracking-tight">
-                <span className="block">CURIOUS</span>
-                <span className="block">ABOUT</span>
-                <span className="block">
-                  SOMETHING<span className="text-gray-500">?</span>
+              <h1 className="text-3xl md:text-5xl lg:text-7xl font-light tracking-tight min-h-[5.5rem] md:min-h-[7rem] lg:min-h-[8rem]">
+                <span className="inline">
+                  {typedText}
+                  <span className="ml-1 inline-block h-[0.85em] w-[2px] translate-y-1 bg-gray-400 animate-pulse" />
                 </span>
               </h1>
             </div>
@@ -113,7 +150,7 @@ const FooterContact = () => {
             {/* Copyright */}
             <div className="pt-16">
               <p className="text-sm text-gray-500 leading-relaxed">
-                © 2025, Shiv Chauhan.
+                © 2026, Shiv Chauhan.
                 <br />
                 All Rights Reserved
               </p>

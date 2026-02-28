@@ -184,7 +184,7 @@ const MobileFooterSection = () => {
         {/* Footer */}
         <div className="text-center pt-8 border-t border-gray-800">
           <p className="text-gray-500 text-xs">
-            © 2025 Shiv Chauhan • Made with ❤️ in India
+            © 2026 Shiv Chauhan • Made with ❤️ in India
           </p>
         </div>
       </div>

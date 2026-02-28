@@ -36,6 +36,9 @@ const CustomCursor = () => {
 
     const handleMouseMove = (event) => {
       const { clientX: x, clientY: y } = event;
+      const isInProjectsSection =
+        event.target instanceof Element &&
+        Boolean(event.target.closest("#projects"));
 
       pointer.current = { x, y };
       if (!visibleRef.current) {
@@ -44,7 +47,7 @@ const CustomCursor = () => {
 
       visibleRef.current = true;
       setIsVisible(true);
-      setSpotlight(x, y, 1);
+      setSpotlight(x, y, isInProjectsSection ? 0 : 1);
       checkInteractiveTarget(event.target);
     };
 

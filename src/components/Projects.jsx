@@ -59,14 +59,6 @@ export default function ProjectsSection() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(900px circle at 50% 0%, rgba(255,255,255,0.14), transparent 48%)",
-        }}
-      />
-
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 py-16 md:px-10">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
