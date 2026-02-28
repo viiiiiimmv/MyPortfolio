@@ -3,7 +3,7 @@ body, html {
   padding: 0;
   overflow-x: hidden;
   background-color: black;
-
+  font-family: "Satoshi", sans-serif;
 }
 
 * {
@@ -21,11 +21,11 @@ body, html {
   inset: 0;
   pointer-events: none;
   z-index: 40;
-  opacity: 0.18;
+  opacity: 0.08;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
 .global-spotlight-overlay {
@@ -37,8 +37,8 @@ body, html {
   background:
     radial-gradient(
       400px circle at var(--cursor-x) var(--cursor-y),
-      rgba(255, 255, 255, 0.14),
-      rgba(255, 255, 255, 0.06) 28%,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.04) 28%,
       transparent 65%
     );
   mix-blend-mode: screen;
@@ -47,6 +47,6 @@ body, html {
 
 @media (max-width: 768px) {
   .global-grid-overlay {
-    opacity: 0.2;
+    opacity: 0.06;
   }
 }

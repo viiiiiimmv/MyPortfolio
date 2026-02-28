@@ -1,27 +1,43 @@
+import { motion as Motion } from "framer-motion";
 import projects from "../assets/data/mobileProjects.js";
+import {
+  fadeUp,
+  sectionReveal,
+  subtleHover,
+  subtlePress,
+  viewportConfig,
+} from "../lib/motion";
 
 const ProjectPanel = () => {
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-8">
+    <Motion.section
+      className="min-h-screen bg-black px-4 py-8 text-white"
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportConfig}
+      variants={sectionReveal}
+    >
       {/* Header Section */}
-      <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold mb-4 tracking-tight">
+      <Motion.div className="mb-12 text-center" variants={fadeUp}>
+        <h1 className="mb-4 text-4xl font-bold tracking-tight">
           Things I've worked on
         </h1>
         <p className="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto">
           A collection of projects that showcase engineering, design, and
           problem-solving in action.
         </p>
-      </div>
+      </Motion.div>
 
       {/* Projects Grid */}
       <div className="space-y-8 max-w-md mx-auto">
         {projects.map((project, index) => {
           return (
-            <div
+            <Motion.div
               key={index}
               className="bg-transparent rounded-xl border border-gray-700 overflow-hidden hover:border-gray-600 transition-all duration-300 transform hover:scale-[1.02] focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-opacity-30"
               tabIndex="0"
+              variants={fadeUp}
+              whileHover={subtleHover}
             >
               {/* Project Content */}
               <div className="p-6">
@@ -49,23 +65,25 @@ const ProjectPanel = () => {
                 {/* Project Links */}
                 <div className="flex flex-col gap-3">
                   {project.links.map((link, idx) => (
-                    <a
+                    <Motion.a
                       key={idx}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-gray-200 text-gray-900 px-4 py-2 rounded-lg font-medium text-center transition-all duration-200 hover:bg-white hover:transform hover:scale-[1.02] focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 active:scale-95"
+                      whileHover={subtleHover}
+                      whileTap={subtlePress}
                     >
                       {link.text}
-                    </a>
+                    </Motion.a>
                   ))}
                 </div>
               </div>
-            </div>
+            </Motion.div>
           );
         })}
       </div>
-    </div>
+    </Motion.section>
   );
 };
 

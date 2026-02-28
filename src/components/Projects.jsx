@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
+import { motion as Motion } from "framer-motion";
 import projects from "../assets/data/projectsData";
+import {
+  fadeUp,
+  sectionReveal,
+  subtleHover,
+  subtlePress,
+  viewportConfig,
+} from "../lib/motion";
 
 const AUTO_ROTATE_MS = 5200;
 
@@ -53,27 +61,46 @@ export default function ProjectsSection() {
   if (!activeProject) return null;
 
   return (
-    <section
+    <Motion.section
       id="projects"
       className="relative min-h-screen overflow-hidden bg-black text-white"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportConfig}
+      variants={sectionReveal}
     >
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 py-16 md:px-10">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <Motion.div
+        className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 py-16 md:px-10"
+        variants={fadeUp}
+      >
+        <Motion.div
+          className="mb-8 flex flex-wrap items-end justify-between gap-4"
+          variants={fadeUp}
+        >
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.28em] text-neutral-500">
+            <Motion.p
+              className="font-mono text-xs uppercase tracking-[0.28em] text-neutral-500"
+              variants={fadeUp}
+            >
               Projects / Interactive Deck
-            </p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
+            </Motion.p>
+            <Motion.h2
+              className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl"
+              variants={fadeUp}
+            >
               Explore my work in motion.
-            </h2>
+            </Motion.h2>
           </div>
 
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-neutral-600">
+          <Motion.p
+            className="font-mono text-xs uppercase tracking-[0.18em] text-neutral-600"
+            variants={fadeUp}
+          >
             {isPaused ? "Deck paused on hover" : "Deck auto cycling"}
-          </p>
-        </div>
+          </Motion.p>
+        </Motion.div>
 
         <div className="relative mx-auto h-[23rem] w-full max-w-6xl md:h-[27rem]">
           {projects.map((project, index) => {
@@ -137,30 +164,43 @@ export default function ProjectsSection() {
           })}
         </div>
 
-        <div className="mt-7 flex items-center justify-center gap-3">
-          <button
+        <Motion.div
+          className="mt-7 flex items-center justify-center gap-3"
+          variants={fadeUp}
+        >
+          <Motion.button
             type="button"
             onClick={() => setActiveIndex((prev) => wrapIndex(prev - 1, total))}
             className="rounded-full border border-neutral-700 px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-neutral-300 transition-colors hover:border-white hover:text-white"
+            whileHover={subtleHover}
+            whileTap={subtlePress}
           >
             Prev
-          </button>
+          </Motion.button>
 
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-500">
+          <Motion.span
+            className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-500"
+            variants={fadeUp}
+          >
             {String(activeIndex + 1).padStart(2, "0")} /{" "}
             {String(total).padStart(2, "0")}
-          </span>
+          </Motion.span>
 
-          <button
+          <Motion.button
             type="button"
             onClick={() => setActiveIndex((prev) => wrapIndex(prev + 1, total))}
             className="rounded-full border border-neutral-700 px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-neutral-300 transition-colors hover:border-white hover:text-white"
+            whileHover={subtleHover}
+            whileTap={subtlePress}
           >
             Next
-          </button>
-        </div>
+          </Motion.button>
+        </Motion.div>
 
-        <div className="mx-auto mt-7 w-full max-w-5xl rounded-2xl border border-neutral-800 bg-neutral-950/70 p-6 md:p-7">
+        <Motion.div
+          className="mx-auto mt-7 w-full max-w-5xl rounded-2xl border border-neutral-800 bg-neutral-950/70 p-6 md:p-7"
+          variants={fadeUp}
+        >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
               {activeProject.title}
@@ -201,25 +241,30 @@ export default function ProjectsSection() {
               }
 
               return (
-                <a
+                <Motion.a
                   key={`${activeProject.title}-${link.text}`}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center rounded-lg border border-neutral-600 px-4 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
+                  whileHover={subtleHover}
+                  whileTap={subtlePress}
                 >
                   {link.text}
-                </a>
+                </Motion.a>
               );
             })}
           </div>
-        </div>
+        </Motion.div>
 
-        <p className="mt-6 text-center font-mono text-xs uppercase tracking-[0.18em] text-neutral-600">
+        <Motion.p
+          className="mt-6 text-center font-mono text-xs uppercase tracking-[0.18em] text-neutral-600"
+          variants={fadeUp}
+        >
           Use arrow keys, side cards, or prev/next.
-        </p>
-      </div>
+        </Motion.p>
+      </Motion.div>
 
-    </section>
+    </Motion.section>
   );
 }

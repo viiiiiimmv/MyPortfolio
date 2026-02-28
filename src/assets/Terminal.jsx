@@ -1,185 +1,159 @@
-import { useEffect, useState } from 'react';
+import { motion as Motion } from "framer-motion";
+import {
+  fadeUp,
+  sectionReveal,
+  staggerChildren,
+  subtleHover,
+  viewportConfig,
+} from "../lib/motion";
 
-const PANELS = [
+const ABOUT_SIGNALS = [
   {
-    label: 'Build',
-    headline: 'I build products that stay clean as they scale.',
-    body:
-      'From first commit to long-term maintenance, I optimize for clarity, reliability, and momentum.',
-    chips: ['Architecture', 'Performance', 'Maintainability'],
-    stat: 'Delivery Signal',
-    value: 91,
+    label: "Who I Am",
+    lead: "Shiv Chauhan. Builder. Operator.",
+    text: "A full-stack developer who takes products from idea to dependable release.",
   },
   {
-    label: 'Design',
-    headline: 'I design interfaces with calm motion and strong intent.',
-    body:
-      'The goal is simple: make interaction feel natural, readable, and responsive without visual noise.',
-    chips: ['Interaction', 'Hierarchy', 'Craft'],
-    stat: 'Experience Signal',
-    value: 87,
+    label: "What I Specialize In",
+    lead: "React + Node execution.",
+    text: "Fast interfaces, resilient APIs, and maintainable architecture built for product growth.",
   },
   {
-    label: 'Grow',
-    headline: 'I learn in loops and convert feedback into better systems.',
-    body:
-      'Each project sharpens decisions. I keep what works, remove friction, and raise quality every iteration.',
-    chips: ['Feedback', 'Iteration', 'Consistency'],
-    stat: 'Learning Signal',
-    value: 89,
+    label: "What Makes Me Different",
+    lead: "Product judgment + engineering depth.",
+    text: "I optimize user clarity and long-term code health in the same decision loop.",
+  },
+  {
+    label: "Value I Bring",
+    lead: "Higher velocity. Less rework.",
+    text: "Teams ship faster with cleaner systems and UX that feels deliberate.",
   },
 ];
 
 export default function Terminal() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const activePanel = PANELS[activeIndex];
-
-  const setIndexSafe = (next) => {
-    setActiveIndex((next + PANELS.length) % PANELS.length);
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        setIndexSafe(activeIndex + 1);
-      }
-
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        setIndexSafe(activeIndex - 1);
-      }
-
-      if (event.key >= '1' && event.key <= String(PANELS.length)) {
-        setActiveIndex(Number(event.key) - 1);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeIndex]);
-
-  useEffect(() => {
-    if (isPaused) return undefined;
-
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % PANELS.length);
-    }, 4500);
-
-    return () => clearInterval(interval);
-  }, [isPaused]);
-
   return (
-    <section
+    <Motion.section
       id="about"
-      className="relative min-h-screen w-full overflow-hidden bg-black text-white"
+      className="relative min-h-[88vh] w-full overflow-hidden bg-black text-white"
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportConfig}
+      variants={sectionReveal}
     >
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col justify-center px-6 py-20 md:px-10">
-        <p className="font-mono text-xs uppercase tracking-[0.28em] text-neutral-500">
-          About / Minimal Interactive
-        </p>
-
-        <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight md:text-5xl">
-          Simple interaction, clear intent.
-        </h2>
-
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neutral-400 md:text-base">
-          Pick a facet. The message updates instantly. It also auto-rotates when idle.
-        </p>
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          {PANELS.map((panel, index) => {
-            const isActive = activeIndex === index;
-            return (
-              <button
-                key={panel.label}
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                className={`rounded-full border px-5 py-2 text-sm transition-all duration-300 ${
-                  isActive
-                    ? 'border-white bg-white text-black'
-                    : 'border-neutral-700 bg-black/30 text-neutral-300 hover:border-neutral-400'
-                }`}
-              >
-                {panel.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <div
-          className="mt-8 rounded-3xl border border-neutral-800 bg-neutral-950/70 p-6 backdrop-blur-sm md:p-8"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div className="flex items-center justify-between font-mono text-xs text-neutral-500">
-            <span>{`0${activeIndex + 1} / 0${PANELS.length}`}</span>
-            <span>{activePanel.stat}</span>
-          </div>
-
-          <div className="mt-3 h-px w-full bg-neutral-800">
-            <div
-              className="h-full bg-white transition-all duration-500"
-              style={{ width: `${((activeIndex + 1) / PANELS.length) * 100}%` }}
-            />
-          </div>
-
-          <div key={activePanel.label} className="panel-enter mt-8">
-            <h3 className="max-w-3xl text-2xl font-semibold leading-tight md:text-4xl">
-              {activePanel.headline}
-            </h3>
-
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neutral-300 md:text-base">
-              {activePanel.body}
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-2">
-              {activePanel.chips.map((chip) => (
-                <span
-                  key={chip}
-                  className="rounded-full border border-neutral-700 px-3 py-1 font-mono text-xs uppercase tracking-[0.16em] text-neutral-300"
-                >
-                  {chip}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-8 rounded-xl border border-neutral-800 bg-black/40 p-4">
-              <div className="flex items-center justify-between font-mono text-xs uppercase tracking-[0.16em] text-neutral-500">
-                <span>{activePanel.stat}</span>
-                <span className="text-white">{activePanel.value}%</span>
-              </div>
-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-neutral-800">
-                <div
-                  className="h-full rounded-full bg-white transition-all duration-500"
-                  style={{ width: `${activePanel.value}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-neutral-600">
-          Tip: use arrow keys or 1-3.
-        </p>
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/3 top-20 h-56 w-56 rounded-full bg-white/5 blur-3xl" />
+        <div className="absolute bottom-20 right-8 h-52 w-52 rounded-full bg-cyan-300/10 blur-3xl" />
       </div>
 
-      <style>{`
-        .panel-enter {
-          animation: panelEnter 280ms ease-out;
-        }
+      <Motion.div
+        className="relative z-10 mx-auto flex min-h-[88vh] w-full max-w-6xl flex-col justify-center px-6 py-14 md:px-10 md:py-16"
+        variants={staggerChildren}
+      >
+        <Motion.p
+          className="text-xs uppercase tracking-[0.28em] text-neutral-500"
+          style={{ fontFamily: "Synonym, sans-serif" }}
+          variants={fadeUp}
+        >
+          About / Focused Value
+        </Motion.p>
 
-        @keyframes panelEnter {
-          from {
-            opacity: 0;
-            transform: translateY(6px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-    </section>
+        <Motion.h2
+          className="mt-3 max-w-4xl text-4xl font-semibold leading-tight tracking-tight md:text-6xl"
+          style={{ fontFamily: "Clash Grotesk, sans-serif" }}
+          variants={fadeUp}
+        >
+          Full-stack execution with product sense.
+        </Motion.h2>
+
+        <Motion.p
+          className="mt-4 max-w-3xl text-base leading-relaxed text-neutral-300 md:text-lg"
+          style={{ fontFamily: "Satoshi, sans-serif" }}
+          variants={fadeUp}
+        >
+          I build web products that <span className="font-semibold text-white">ship fast</span>,{" "}
+          <span className="font-semibold text-white">scale cleanly</span>, and{" "}
+          <span className="font-semibold text-white">feel clear</span>. The focus is
+          strong outcomes without unnecessary complexity.
+        </Motion.p>
+
+        <Motion.div
+          className="mt-8 grid items-start gap-5 md:mt-9 md:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] md:gap-7"
+          variants={fadeUp}
+        >
+          <div className="self-start">
+            <Motion.div
+              className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 md:p-5"
+              style={{ fontFamily: "Satoshi, sans-serif" }}
+              whileHover={subtleHover}
+            >
+              <p className="text-sm uppercase tracking-[0.2em] text-neutral-500">
+                Positioning
+              </p>
+              <p className="mt-3 text-lg leading-relaxed text-neutral-100">
+                Product-focused full-stack engineer for teams that need{" "}
+                <span className="font-semibold text-white">clean execution</span> and{" "}
+                <span className="font-semibold text-white">dependable delivery</span>.
+              </p>
+
+              <div className="mt-4 border-t border-white/10 pt-3">
+                <p
+                  className="text-xs uppercase tracking-[0.18em] text-neutral-500"
+                  style={{ fontFamily: "Synonym, sans-serif" }}
+                >
+                  Open to full-time and high-impact contract roles
+                </p>
+              </div>
+            </Motion.div>
+          </div>
+
+          <Motion.ul className="space-y-1" variants={staggerChildren}>
+            {ABOUT_SIGNALS.map((signal, index) => (
+              <Motion.li
+                key={signal.label}
+                className="group rounded-xl border border-transparent px-3 py-3 transition-colors duration-300 hover:border-white/15"
+                variants={fadeUp}
+                whileHover={subtleHover}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p
+                      className="text-[11px] uppercase tracking-[0.22em] text-neutral-500"
+                      style={{ fontFamily: "Synonym, sans-serif" }}
+                    >
+                      {signal.label}
+                    </p>
+
+                    <p
+                      className="mt-1.5 text-base leading-relaxed text-neutral-200 md:text-lg"
+                      style={{ fontFamily: "Satoshi, sans-serif" }}
+                    >
+                      <span className="font-bold text-white">
+                        {signal.lead}{" "}
+                      </span>
+                      {signal.text}
+                    </p>
+                  </div>
+
+                  <span
+                    className="mt-0.5 text-xs uppercase tracking-[0.16em] text-neutral-600 transition-colors duration-300 group-hover:text-neutral-200"
+                    style={{ fontFamily: "Synonym, sans-serif" }}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+              </Motion.li>
+            ))}
+          </Motion.ul>
+        </Motion.div>
+
+        <Motion.p
+          className="mt-6 text-xs uppercase tracking-[0.18em] text-neutral-600"
+          style={{ fontFamily: "Synonym, sans-serif" }}
+          variants={fadeUp}
+        >
+          Strong systems. Clear UX. Reliable execution.
+        </Motion.p>
+      </Motion.div>
+    </Motion.section>
   );
 }

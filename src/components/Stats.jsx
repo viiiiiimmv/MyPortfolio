@@ -1,17 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import ProblemStatsChart from './ProblemStatsChart';
-import images from '../assets/data/imageData';
-import { FaInstagram, FaDownload, FaCamera, FaGlobe} from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import { motion as Motion } from "framer-motion";
+import {
+  Camera,
+  Download,
+  Globe,
+  Instagram,
+  Mail,
+  MoveRight,
+} from "lucide-react";
+import ProblemStatsChart from "./ProblemStatsChart";
+import images from "../assets/data/imageData";
+import {
+  fadeUp,
+  sectionReveal,
+  subtleHover,
+  subtlePress,
+  viewportConfig,
+} from "../lib/motion";
 
 const LEETCODE_PROFILE_URL = "https://leetcode.com/u/viii-iii-mmv/";
-
-const handleDownload = () => {
-  const link = document.createElement('a');
-  link.href = 'https://drive.google.com/file/d/180o5z1N69kH0GgS4QMjojMA9mm4Hrv5i/view?usp=share_link';
-  link.download = 'resume.pdf';
-  link.click();
-};
+const RESUME_URL =
+  "https://drive.google.com/file/d/180o5z1N69kH0GgS4QMjojMA9mm4Hrv5i/view?usp=share_link";
 
 const Stats = () => {
   const [currentImage, setCurrentImage] = useState(() => {
@@ -19,201 +28,182 @@ const Stats = () => {
     return images[randomIndex];
   });
 
-  const [isHovered, setIsHovered] = useState(false);
-
   useEffect(() => {
     const interval = setInterval(() => {
       const nextIndex = Math.floor(Math.random() * images.length);
       setCurrentImage(images[nextIndex]);
-    }, 8000);
+    }, 7000);
+
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen bg-black overflow-hidden">
-      {/* Main content container */}
-      <div className="relative z-10 w-full min-h-screen flex flex-col lg:flex-row">
-        
-        {/* Left side - Photography showcase */}
-        <motion.div 
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="relative lg:w-1/2 h-screen flex flex-col justify-between p-8 lg:p-16"
-        >
-          {/* Header section */}
-          <div className="relative z-20">
-            <motion.div
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="flex items-center gap-4 mb-8"
-            >
-              <FaCamera className="text-white text-2xl" />
-              <div className="w-16 h-px bg-white" />
-              <span className="text-xs text-gray-400 tracking-[0.3em] uppercase">Photography</span>
-            </motion.div>
-
-            <motion.h1 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-4xl lg:text-6xl font-thin text-white leading-tight tracking-wide mb-8"
-            >
-              Fueled by code, coffee,
-              <br />
-              and a passion for
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
-                photography.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="text-xl text-gray-300 font-light tracking-wide max-w-2xl"
-            >
-              Building experiences that connect and inspire.
-            </motion.p>
-          </div>
-
-          {/* Photography showcase with hover effect */}
-          <motion.div 
-            className="relative flex-1 max-h-96 mx-8 my-16 rounded-2xl overflow-hidden group cursor-pointer"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            whileHover={{ scale: 1.02 }}
-          >
-            {/* Background image */}
-            <div className="absolute inset-0">
-              <img 
-                src={currentImage} 
-                alt="Photography showcase" 
-                className={`w-full h-full object-cover transition-all duration-1000 ${
-                  isHovered ? 'filter-none scale-110' : 'filter grayscale scale-100'
-                }`}
-              />
-            </div>
-
-            {/* Overlay gradients */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-            <div className={`absolute inset-0 transition-opacity duration-500 ${
-              isHovered ? 'bg-black/20' : 'bg-black/40'
-            }`} />
-
-            {/* Instagram link overlay */}
-            <motion.div 
-              className="absolute bottom-6 left-6 right-6 flex items-center justify-between"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
-            >
-              <div 
-                className="group/insta flex items-center gap-4 cursor-pointer bg-black/60 backdrop-blur-xl px-6 py-3 rounded-full border border-white/20 hover:bg-black/80 transition-all duration-300"
-                onClick={() => window.open('https://www.instagram.com/stealthy.shutter', '_blank')}
-              >
-                <FaInstagram className="text-white text-xl group-hover/insta:scale-110 transition-transform duration-300" />
-                <span className="text-white font-light tracking-wider">@stealthy.shutter</span>
-              </div>
-
-                <div
-                    className="group/site flex items-center gap-4 cursor-pointer bg-black/60 backdrop-blur-xl px-6 py-3 rounded-full border border-white/20 hover:bg-black/80 transition-all duration-300"
-                    onClick={() => window.open('https://stealthyshutter.netlify.app', '_blank')}
-                >
-                    <FaGlobe className="text-white text-xl group-hover/site:scale-110 transition-transform duration-300" />
-                    <span className="text-white font-light tracking-wider">
-    stealthyshutter.netlify.app
-  </span>
-                </div>
-
-
-            </motion.div>
-
-            {/* Hover instruction */}
-            <motion.div
-              className={`absolute top-6 right-6 text-white text-sm font-light tracking-wider transition-opacity duration-300 ${
-                isHovered ? 'opacity-0' : 'opacity-60'
-              }`}
-            >
-              Hover to see in color
-            </motion.div>
-          </motion.div>
-        </motion.div>
-
-        {/* Right side - Stats and actions */}
-        <motion.div 
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="lg:w-1/2 h-screen flex flex-col justify-center p-8 lg:p-16 bg-gradient-to-b from-gray-950 via-black to-gray-950 border-l border-gray-800"
-        >
-          
-          {/* Stats section */}
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="mb-16"
-          >
-            <div className="mb-8">
-              <span className="text-sm text-gray-500 tracking-[0.2em] uppercase mb-4 block">Coding Stats</span>
-              <div className="w-20 h-px bg-white mb-8" />
-            </div>
-            
-            <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl border border-white/10 p-8 hover:border-white/20 transition-all duration-500">
-              <ProblemStatsChart profile={LEETCODE_PROFILE_URL} />
-            </div>
-          </motion.div>
-
-          {/* Resume download section */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="mb-16"
-          >
-            <div className="mb-6">
-              <span className="text-sm text-gray-500 tracking-[0.2em] uppercase">Resume</span>
-              <div className="w-16 h-px bg-white/60 mt-2" />
-            </div>
-            
-            <motion.div
-              onClick={handleDownload}
-              whileHover={{ x: 8 }}
-              whileTap={{ scale: 0.98 }}
-              className="group cursor-pointer relative py-6 border-l-2 border-gray-700 hover:border-white pl-8 transition-all duration-500"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-2xl font-thin text-white tracking-wide mb-2 group-hover:text-gray-200 transition-colors duration-300">
-                    Download CV
-                  </h3>
-                  <p className="text-sm text-gray-500 tracking-wider uppercase">
-                    Latest Version • PDF Format
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-px bg-gray-600 group-hover:bg-white group-hover:w-20 transition-all duration-500" />
-                  <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 group-hover:border-white rotate-45 transition-all duration-300" />
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          
-
-          {/* Decorative elements */}
-          <div className="absolute bottom-16 right-16 w-px h-16 bg-gradient-to-t from-transparent via-white/30 to-transparent" />
-        </motion.div>
+    <Motion.section
+      className="relative w-full min-h-screen overflow-hidden bg-black text-white"
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportConfig}
+      variants={sectionReveal}
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-12 top-1/4 h-60 w-60 rounded-full bg-white/5 blur-3xl" />
       </div>
 
+      <Motion.div
+        className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:py-24"
+        variants={fadeUp}
+      >
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-6">
+            <Motion.div className="mb-8 flex items-center gap-4" variants={fadeUp}>
+              <Camera className="h-5 w-5 text-neutral-300" />
+              <div className="h-px w-14 bg-white/40" />
+              <span
+                className="text-xs uppercase tracking-[0.24em] text-neutral-500"
+                style={{ fontFamily: "Synonym, sans-serif" }}
+              >
+                Photography
+              </span>
+            </Motion.div>
 
-    </section>
+            <Motion.h2
+              className="text-3xl leading-tight tracking-tight md:text-5xl"
+              style={{ fontFamily: "Clash Grotesk, sans-serif" }}
+              variants={fadeUp}
+            >
+              Fueled by code, coffee, and a lens for detail.
+            </Motion.h2>
+
+            <Motion.p
+              className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-300"
+              style={{ fontFamily: "Satoshi, sans-serif" }}
+              variants={fadeUp}
+            >
+              My visual work influences how I design products: cleaner framing,
+              stronger hierarchy, and better storytelling through interfaces.
+            </Motion.p>
+
+            <Motion.div
+              className="group mt-8 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-3 shadow-[0_18px_42px_rgba(0,0,0,0.38)] backdrop-blur-xl"
+              variants={fadeUp}
+              whileHover={subtleHover}
+            >
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src={currentImage}
+                  alt="Photography showcase"
+                  className="h-[22rem] w-full object-cover grayscale transition-[filter,transform] duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+              </div>
+
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                <Motion.a
+                  href="https://www.instagram.com/stealthy.shutter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-black/40 px-3 py-2 text-sm text-neutral-200 transition-colors hover:border-white/40"
+                  style={{ fontFamily: "Satoshi, sans-serif" }}
+                  whileHover={subtleHover}
+                  whileTap={subtlePress}
+                >
+                  <Instagram className="h-4 w-4" />
+                  @stealthy.shutter
+                </Motion.a>
+
+                <Motion.a
+                  href="https://stealthyshutter.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-black/40 px-3 py-2 text-sm text-neutral-200 transition-colors hover:border-white/40"
+                  style={{ fontFamily: "Satoshi, sans-serif" }}
+                  whileHover={subtleHover}
+                  whileTap={subtlePress}
+                >
+                  <Globe className="h-4 w-4" />
+                  stealthyshutter.netlify.app
+                </Motion.a>
+              </div>
+            </Motion.div>
+          </div>
+
+          <div className="lg:col-span-6 lg:border-l lg:border-white/10 lg:pl-8">
+            <Motion.div className="mb-6" variants={fadeUp}>
+              <span
+                className="text-xs uppercase tracking-[0.24em] text-neutral-500"
+                style={{ fontFamily: "Synonym, sans-serif" }}
+              >
+                Coding Proof
+              </span>
+              <div className="mt-3 h-px w-16 bg-white/45" />
+            </Motion.div>
+
+            <Motion.div
+              className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl md:p-8"
+              variants={fadeUp}
+            >
+              <ProblemStatsChart profile={LEETCODE_PROFILE_URL} />
+            </Motion.div>
+
+            <Motion.div
+              className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-white/25"
+              variants={fadeUp}
+              whileHover={subtleHover}
+            >
+              <p
+                className="text-xs uppercase tracking-[0.2em] text-neutral-500"
+                style={{ fontFamily: "Synonym, sans-serif" }}
+              >
+                Resume
+              </p>
+
+              <div className="mt-3 flex items-center justify-between gap-4">
+                <div>
+                  <h3
+                    className="text-xl"
+                    style={{ fontFamily: "Clash Grotesk, sans-serif" }}
+                  >
+                    Download CV
+                  </h3>
+                  <p
+                    className="mt-1 text-sm text-neutral-400"
+                    style={{ fontFamily: "Satoshi, sans-serif" }}
+                  >
+                    Latest version in PDF format
+                  </p>
+                </div>
+
+                <Motion.a
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-white/20 px-4 py-2 text-sm text-white transition-colors hover:border-white/45"
+                  style={{ fontFamily: "Satoshi, sans-serif" }}
+                  whileHover={subtleHover}
+                  whileTap={subtlePress}
+                >
+                  <Download className="h-4 w-4" />
+                  Get CV
+                </Motion.a>
+              </div>
+            </Motion.div>
+
+            <Motion.a
+              href="#contact"
+              className="mt-6 inline-flex items-center gap-2 text-sm text-neutral-300 transition-colors hover:text-white"
+              style={{ fontFamily: "Satoshi, sans-serif" }}
+              variants={fadeUp}
+              whileHover={subtleHover}
+              whileTap={subtlePress}
+            >
+              <Mail className="h-4 w-4" />
+              Let’s discuss an opportunity
+              <MoveRight className="h-4 w-4" />
+            </Motion.a>
+          </div>
+        </div>
+      </Motion.div>
+    </Motion.section>
   );
 };
 

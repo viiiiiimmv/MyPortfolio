@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AnimatePresence, motion as Motion } from "framer-motion";
 import {
   Instagram,
   Linkedin,
@@ -8,6 +9,13 @@ import {
   MapPin,
   Calendar,
 } from "lucide-react";
+import {
+  fadeUp,
+  sectionReveal,
+  subtleHover,
+  subtlePress,
+  viewportConfig,
+} from "../lib/motion";
 
 const MobileFooterSection = () => {
   const [activeTab, setActiveTab] = useState("connect");
@@ -46,166 +54,184 @@ const MobileFooterSection = () => {
   ];
 
   return (
-    <section
+    <Motion.section
       id="contact"
       className="bg-black text-white min-h-screen px-4 py-12"
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportConfig}
+      variants={sectionReveal}
     >
-      <div className="max-w-sm mx-auto space-y-8">
+      <Motion.div className="mx-auto max-w-sm space-y-8" variants={fadeUp}>
         {/* Profile Card */}
 
         {/* Tab Navigation */}
-        <div className="bg-gray-900 rounded-xl p-1">
+        <Motion.div className="rounded-xl bg-gray-900 p-1" variants={fadeUp}>
           <div className="grid grid-cols-2 gap-1">
-            <button
+            <Motion.button
               onClick={() => setActiveTab("connect")}
               className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                 activeTab === "connect"
                   ? "bg-white text-black"
                   : "text-gray-400 hover:text-white"
               }`}
+              whileTap={subtlePress}
             >
               Connect
-            </button>
-            <button
+            </Motion.button>
+            <Motion.button
               onClick={() => setActiveTab("info")}
               className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                 activeTab === "info"
                   ? "bg-white text-black"
                   : "text-gray-400 hover:text-white"
               }`}
+              whileTap={subtlePress}
             >
               Quick Info
-            </button>
+            </Motion.button>
           </div>
-        </div>
+        </Motion.div>
 
         {/* Tab Content */}
         <div className="min-h-[300px]">
-          {activeTab === "connect" && (
-            <div className="space-y-6 animate-fade-in">
-              <div className="text-center">
-                <h2 className="text-2xl font-bold mb-2">Let's Connect</h2>
-                <p className="text-gray-400 text-sm">
-                  Choose your preferred way to reach out
-                </p>
-              </div>
-
-              {/* Email CTA */}
-              <div className="bg-transparent rounded-xl p-6 border border-gray-700">
-                <div className="text-center space-y-4">
-                  <Mail className="w-8 h-8 mx-auto text-gray-300" />
-                  <div>
-                    <h3 className="font-semibold mb-1">Send me an email</h3>
-                    <p className="text-gray-400 text-xs mb-4">
-                      Perfect for project discussions and collaborations
-                    </p>
-                  </div>
-                  <a
-                    href="mailto:shivchauhan41223@gmail.com"
-                    className="inline-block bg-white text-black px-6 py-2 rounded-lg font-medium text-sm hover:bg-gray-200 transition-colors"
-                  >
-                    Drop a message
-                  </a>
+          <AnimatePresence mode="wait">
+            {activeTab === "connect" ? (
+              <Motion.div
+                key="connect-tab"
+                className="space-y-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="text-center">
+                  <h2 className="mb-2 text-2xl font-bold">Let's Connect</h2>
+                  <p className="text-sm text-gray-400">
+                    Choose your preferred way to reach out
+                  </p>
                 </div>
-              </div>
 
-              {/* Social Links */}
-              <div className="space-y-3">
-                <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider">
-                  Or find me on
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {socialLinks.map(({ icon: Icon, href, label, color }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center gap-3 p-4 bg-transparent rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-200 ${color} group`}
+                {/* Email CTA */}
+                <Motion.div
+                  className="rounded-xl border border-gray-700 bg-transparent p-6"
+                  whileHover={subtleHover}
+                >
+                  <div className="space-y-4 text-center">
+                    <Mail className="mx-auto h-8 w-8 text-gray-300" />
+                    <div>
+                      <h3 className="mb-1 font-semibold">Send me an email</h3>
+                      <p className="mb-4 text-xs text-gray-400">
+                        Perfect for project discussions and collaborations
+                      </p>
+                    </div>
+                    <Motion.a
+                      href="mailto:shivchauhan41223@gmail.com"
+                      className="inline-block rounded-lg bg-white px-6 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200"
+                      whileTap={subtlePress}
                     >
-                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                      <span className="text-sm font-medium">{label}</span>
-                    </a>
+                      Drop a message
+                    </Motion.a>
+                  </div>
+                </Motion.div>
+
+                {/* Social Links */}
+                <div className="space-y-3">
+                  <h3 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+                    Or find me on
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {socialLinks.map(({ icon: ICON, href, label, color }) => (
+                      <Motion.a
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group flex items-center gap-3 rounded-lg border border-gray-700 bg-transparent p-4 transition-all duration-200 hover:border-gray-600 ${color}`}
+                        whileHover={subtleHover}
+                        whileTap={subtlePress}
+                      >
+                        {React.createElement(ICON, {
+                          className:
+                            "h-5 w-5 transition-transform group-hover:scale-110",
+                        })}
+                        <span className="text-sm font-medium">{label}</span>
+                      </Motion.a>
+                    ))}
+                  </div>
+                </div>
+              </Motion.div>
+            ) : (
+              <Motion.div
+                key="info-tab"
+                className="space-y-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="text-center">
+                  <h2 className="mb-2 text-2xl font-bold">Quick Facts</h2>
+                  <p className="text-sm text-gray-400">
+                    Everything you need to know at a glance
+                  </p>
+                </div>
+
+                {/* Quick Facts Cards */}
+                <div className="space-y-4">
+                  {quickFacts.map(({ icon: ICON, label, value }) => (
+                    <Motion.div
+                      key={label}
+                      className="rounded-xl border border-gray-700 bg-gray-950 p-4"
+                      whileHover={subtleHover}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="rounded-lg bg-gray-700 p-3">
+                          {React.createElement(ICON, {
+                            className: "h-5 w-5 text-gray-300",
+                          })}
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase tracking-wide text-gray-400">
+                            {label}
+                          </p>
+                          <p className="font-medium text-white">{value}</p>
+                        </div>
+                      </div>
+                    </Motion.div>
                   ))}
                 </div>
-              </div>
-            </div>
-          )}
 
-          {activeTab === "info" && (
-            <div className="space-y-6 animate-fade-in">
-              <div className="text-center">
-                <h2 className="text-2xl font-bold mb-2">Quick Facts</h2>
-                <p className="text-gray-400 text-sm">
-                  Everything you need to know at a glance
-                </p>
-              </div>
-
-              {/* Quick Facts Cards */}
-              <div className="space-y-4">
-                {quickFacts.map(({ icon: Icon, label, value }) => (
-                  <div
-                    key={label}
-                    className="bg-gray-950 rounded-xl p-4 border border-gray-700"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="bg-gray-700 rounded-lg p-3">
-                        <Icon className="w-5 h-5 text-gray-300" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-400 uppercase tracking-wide">
-                          {label}
-                        </p>
-                        <p className="text-white font-medium">{value}</p>
-                      </div>
+                {/* Status Badge */}
+                <Motion.div
+                  className="rounded-xl border border-green-800 bg-green-900 bg-opacity-20 p-4"
+                  whileHover={subtleHover}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-green-400"></div>
+                    <div>
+                      <p className="text-sm font-medium text-green-400">
+                        Currently Available
+                      </p>
+                      <p className="text-xs text-green-300">
+                        Ready for new projects and opportunities
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Status Badge */}
-              <div className="bg-green-900 bg-opacity-20 border border-green-800 rounded-xl p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <div>
-                    <p className="text-green-400 font-medium text-sm">
-                      Currently Available
-                    </p>
-                    <p className="text-green-300 text-xs">
-                      Ready for new projects and opportunities
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+                </Motion.div>
+              </Motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Footer */}
-        <div className="text-center pt-8 border-t border-gray-800">
+        <Motion.div className="border-t border-gray-800 pt-8 text-center" variants={fadeUp}>
           <p className="text-gray-500 text-xs">
             © 2026 Shiv Chauhan • Made with ❤️ in India
           </p>
-        </div>
-      </div>
-
-      <style jsx>{`
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-    </section>
+        </Motion.div>
+      </Motion.div>
+    </Motion.section>
   );
 };
 

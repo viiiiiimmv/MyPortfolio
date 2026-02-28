@@ -9,6 +9,16 @@ import {
 // Monochrome color scheme with subtle gradients
 const COLORS = ["#ffffff", "#a1a1aa", "#525252"]; // White, light gray, dark gray
 const HOVER_COLORS = ["#f3f4f6", "#d1d5db", "#6b7280"]; // Slightly different shades for hover
+const LEETCODE_OFFICIAL_COLORS = {
+  easy: "#00B8A3",
+  medium: "#FFC01E",
+  hard: "#FF375F",
+};
+
+const getDifficultyColor = (difficulty) => {
+  const key = String(difficulty || "").toLowerCase();
+  return LEETCODE_OFFICIAL_COLORS[key] || "#ffffff";
+};
 
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
@@ -106,7 +116,13 @@ const ProblemStatsChart = ({ profile = "https://leetcode.com/u/viii-iii-mmv/" })
               {stats.map((entry, index) => (
                 <Cell 
                   key={`cell-${index}`} 
-                  fill={hoveredIndex === index ? HOVER_COLORS[index] : COLORS[index]}
+                  fill={
+                    hoveredIndex === index
+                      ? getDifficultyColor(entry.difficulty)
+                      : HOVER_COLORS[index]
+                  }
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                   className="transition-all duration-300 hover:opacity-80"
                 />
               ))}
@@ -133,14 +149,35 @@ const ProblemStatsChart = ({ profile = "https://leetcode.com/u/viii-iii-mmv/" })
                       className={`w-3 h-3 transition-all duration-300 ${
                         hoveredIndex === index ? 'scale-125' : 'scale-100'
                       }`}
-                      style={{ backgroundColor: COLORS[index] }}
+                      style={{
+                        backgroundColor:
+                          hoveredIndex === index
+                            ? getDifficultyColor(entry.difficulty)
+                            : COLORS[index],
+                      }}
                     />
-                    <span className="text-white font-light tracking-wider uppercase text-sm">
+                    <span
+                      className="font-light tracking-wider uppercase text-sm transition-colors duration-300"
+                      style={{
+                        color:
+                          hoveredIndex === index
+                            ? getDifficultyColor(entry.difficulty)
+                            : "#ffffff",
+                      }}
+                    >
                       {entry.difficulty}
                     </span>
                   </div>
                   <div className="text-right">
-                    <div className="text-white font-light text-lg">
+                    <div
+                      className="font-light text-lg transition-colors duration-300"
+                      style={{
+                        color:
+                          hoveredIndex === index
+                            ? getDifficultyColor(entry.difficulty)
+                            : "#ffffff",
+                      }}
+                    >
                       {entry.count}
                     </div>
                     <div className="text-xs text-gray-500">
@@ -153,7 +190,13 @@ const ProblemStatsChart = ({ profile = "https://leetcode.com/u/viii-iii-mmv/" })
                 <div className="w-full h-px bg-gray-800 overflow-hidden">
                   <div
                     className="h-full transition-all duration-300"
-                    style={{ width: `${percentage}%`, backgroundColor: COLORS[index] }}
+                    style={{
+                      width: `${percentage}%`,
+                      backgroundColor:
+                        hoveredIndex === index
+                          ? getDifficultyColor(entry.difficulty)
+                          : COLORS[index],
+                    }}
                   />
                 </div>
               </div>

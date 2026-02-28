@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion as Motion } from "framer-motion";
 import {
   Instagram,
   Linkedin,
@@ -7,6 +8,13 @@ import {
   Send,
   Loader2,
 } from "lucide-react";
+import {
+  fadeUp,
+  sectionReveal,
+  subtleHover,
+  subtlePress,
+  viewportConfig,
+} from "../lib/motion";
 
 const CTA_PHRASES = [
   "Curious about something?",
@@ -88,77 +96,109 @@ const FooterContact = () => {
   }, [typedText, isDeleting, phraseIndex]);
 
   return (
-    <section id="contact" className="relative h-max bg-black text-white">
+    <Motion.section
+      id="contact"
+      className="relative h-max bg-black text-white"
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportConfig}
+      variants={sectionReveal}
+    >
       {/* Loading Overlay */}
-      {loading && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-          <div className="flex flex-col items-center gap-4">
-            <Loader2 className="w-8 h-8 animate-spin text-white" />
-            <p className="text-sm text-gray-300">Sending message...</p>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {loading && (
+          <Motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="flex flex-col items-center gap-4">
+              <Loader2 className="h-8 w-8 animate-spin text-white" />
+              <p className="text-sm text-gray-300">Sending message...</p>
+            </div>
+          </Motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Toast Notification */}
-      {toast.message && (
-        <div
-          className={`fixed top-8 right-8 px-6 py-3 rounded-lg border z-50 transition-all duration-300 ${
-            toast.type === "success"
-              ? "bg-green-900 bg-opacity-90 border-green-500 border-opacity-30 text-green-100"
-              : "bg-red-900 bg-opacity-90 border-red-500 border-opacity-30 text-red-100"
-          }`}
-        >
-          {toast.message}
-        </div>
-      )}
+      <AnimatePresence>
+        {toast.message && (
+          <Motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className={`fixed right-8 top-8 z-50 rounded-lg border px-6 py-3 ${
+              toast.type === "success"
+                ? "border-green-500 border-opacity-30 bg-green-900 bg-opacity-90 text-green-100"
+                : "border-red-500 border-opacity-30 bg-red-900 bg-opacity-90 text-red-100"
+            }`}
+          >
+            {toast.message}
+          </Motion.div>
+        )}
+      </AnimatePresence>
 
-      <div className="container mx-auto px-6 py-20 lg:py-32">
+      <Motion.div
+        className="relative z-10 container mx-auto px-6 py-20 lg:py-32"
+        variants={fadeUp}
+      >
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left Section */}
           <div className="space-y-12">
-            <div className="space-y-2">
-              <h1 className="text-3xl md:text-5xl lg:text-7xl font-light tracking-tight min-h-[5.5rem] md:min-h-[7rem] lg:min-h-[8rem]">
+            <Motion.div className="space-y-2" variants={fadeUp}>
+              <Motion.h1
+                className="min-h-[5.5rem] text-3xl font-light tracking-tight md:min-h-[7rem] md:text-5xl lg:min-h-[8rem] lg:text-7xl"
+                variants={fadeUp}
+              >
                 <span className="inline">
                   {typedText}
                   <span className="ml-1 inline-block h-[0.85em] w-[2px] translate-y-1 bg-gray-400 animate-pulse" />
                 </span>
-              </h1>
-            </div>
+              </Motion.h1>
+            </Motion.div>
 
-            <div className="space-y-8">
+            <Motion.div className="space-y-8" variants={fadeUp}>
               <p className="text-lg text-gray-300 font-light tracking-wide">
                 CONNECT WITH ME
               </p>
 
               {/* Social Icons */}
               <div className="flex gap-6">
-                {socialLinks.map(({ icon: Icon, href, label }) => (
-                  <a
+                {socialLinks.map(({ icon: ICON, href, label }) => (
+                  <Motion.a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative p-3 border border-gray-800 rounded-full hover:border-white transition-colors duration-300"
                     aria-label={label}
+                    whileHover={subtleHover}
+                    whileTap={subtlePress}
                   >
-                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                  </a>
+                    {React.createElement(ICON, {
+                      className:
+                        "w-5 h-5 group-hover:scale-110 transition-transform duration-300",
+                    })}
+                  </Motion.a>
                 ))}
               </div>
-            </div>
+            </Motion.div>
 
             {/* Copyright */}
-            <div className="pt-16">
+            <Motion.div className="pt-16" variants={fadeUp}>
               <p className="text-sm text-gray-500 leading-relaxed">
                 © 2026, Shiv Chauhan.
                 <br />
                 All Rights Reserved
               </p>
-            </div>
+            </Motion.div>
           </div>
 
           {/* Right Section - Contact Form */}
-          <div className="space-y-8">
+          <Motion.div className="space-y-8" variants={fadeUp}>
             <div>
               <h2 className="text-2xl md:text-3xl font-light tracking-wide mb-2">
                 DROP ME A MESSAGE!
@@ -210,19 +250,21 @@ const FooterContact = () => {
               </div>
 
               {/* Submit Button */}
-              <button
+              <Motion.button
                 type="submit"
                 disabled={loading}
                 className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-medium tracking-wide text-sm uppercase hover:bg-gray-100 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={subtleHover}
+                whileTap={subtlePress}
               >
                 <span>Start a Conversation</span>
                 <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-              </button>
+              </Motion.button>
             </form>
-          </div>
+          </Motion.div>
         </div>
-      </div>
-    </section>
+      </Motion.div>
+    </Motion.section>
   );
 };
 
