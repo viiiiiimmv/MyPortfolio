@@ -1,93 +1,185 @@
-.home-loader-wrapper {
-    position: fixed;
-    inset: 0;
-    background: #fff;
-    z-index: 9999;
-    overflow: hidden;
-  }
-  
-  .home-door {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 100%;
-    background-color: black;
-    z-index: 2;
-    box-shadow: 0 0 20px 2px #000;
-  }
-  
-  .home-sweep {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 50%;
-    background: linear-gradient(to right, rgba(0,0,0,0.6), transparent);
-    z-index: 1;
-    animation-duration: 2.5s;
-    animation-iteration-count: infinite;
-  }
-  
-  .home-sweep-left {
-    left: 0;
-    animation-name: home-sweep-left-anim;
-  }
-  
-  .home-sweep-right {
-    right: 0;
-    transform: scaleX(-1);
-    animation-name: home-sweep-right-anim;
-  }
-  
-  @keyframes home-sweep-left-anim {
-    0%   { transform: translateX(-100%); opacity: 0.2; }
-    50%  { transform: translateX(0); opacity: 1; }
-    100% { transform: translateX(-100%); opacity: 0.2; }
-  }
-  
-  @keyframes home-sweep-right-anim {
-    0%   { transform: translateX(100%) scaleX(-1); opacity: 0.2; }
-    50%  { transform: translateX(0) scaleX(-1); opacity: 1; }
-    100% { transform: translateX(100%) scaleX(-1); opacity: 0.2; }
-  }
-  
-  .home-final-expand {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: white;
-    z-index: 4;
-    animation: home-final-expand-anim 0.8s ease-in-out forwards;
-  }
-  
-  @keyframes home-final-expand-anim {
-    0% { transform: scale(0); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  
-  .home-loader-text {
-    position: absolute;
-    bottom: 10%;
-    width: 100%;
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    color: #333;
-    letter-spacing: 1px;
-    z-index: 5;
-  }
+.home-loader-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: #000;
+  color: #f5f5f5;
+}
 
-  .home-sweep-container.hide {
-    animation: fadeOutSweep 1s forwards;
+.home-loader-shell {
+  width: min(86vw, 270px);
+  padding: 1.75rem 1.25rem 1.5rem;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(6px);
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.52),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.home-loader-visual {
+  width: clamp(88px, 18vw, 118px);
+  aspect-ratio: 1;
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.home-shape {
+  position: absolute;
+}
+
+.home-square {
+  border: 1px solid rgba(255, 255, 255, 0.52);
+}
+
+.home-large {
+  inset: 4%;
+  border-radius: 2px;
+  animation: home-rotate-cw 3.1s linear infinite;
+}
+
+.home-medium {
+  inset: 22%;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  animation: home-rotate-ccw 2.2s linear infinite;
+}
+
+.home-diamond {
+  width: 24%;
+  aspect-ratio: 1;
+  border: 1px solid #fff;
+  background: #000;
+  transform: rotate(45deg);
+  animation: home-pulse-diamond 1.45s ease-in-out infinite;
+}
+
+.home-dot {
+  width: 5px;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: #fff;
+  animation: home-dot-pulse 1.3s ease-in-out infinite;
+}
+
+.home-dot-1 {
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home-dot-2 {
+  top: 50%;
+  right: 8%;
+  transform: translate(50%, -50%);
+  animation-delay: 0.2s;
+}
+
+.home-dot-3 {
+  bottom: 8%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  animation-delay: 0.4s;
+}
+
+.home-dot-4 {
+  top: 50%;
+  left: 8%;
+  transform: translate(-50%, -50%);
+  animation-delay: 0.6s;
+}
+
+.home-loader-copy {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+}
+
+.home-loader-title {
+  margin: 0;
+  letter-spacing: 0.36em;
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.86);
+  text-indent: 0.36em;
+}
+
+.home-loader-track {
+  width: min(100%, 130px);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.home-loader-track span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 42%;
+  border-radius: inherit;
+  background: #fff;
+  opacity: 0.96;
+  animation: home-glide 1.35s ease-in-out infinite;
+}
+
+@keyframes home-rotate-cw {
+  to {
+    transform: rotate(360deg);
   }
-  
-  @keyframes fadeOutSweep {
-    to {
-      opacity: 0;
-      transform: scale(1.1);
-    }
-  }  
-  
+}
+
+@keyframes home-rotate-ccw {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes home-pulse-diamond {
+  0%,
+  100% {
+    transform: rotate(45deg) scale(0.84);
+    opacity: 0.65;
+  }
+  50% {
+    transform: rotate(45deg) scale(1.02);
+    opacity: 1;
+  }
+}
+
+@keyframes home-dot-pulse {
+  0%,
+  100% {
+    opacity: 0.24;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes home-glide {
+  0% {
+    transform: translateX(-115%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-large,
+  .home-medium,
+  .home-diamond,
+  .home-dot,
+  .home-loader-track span {
+    animation: none;
+  }
+}

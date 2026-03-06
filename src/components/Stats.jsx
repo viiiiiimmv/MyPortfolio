@@ -92,6 +92,8 @@ const Stats = () => {
                 <img
                   src={currentImage}
                   alt="Photography showcase"
+                  loading="lazy"
+                  decoding="async"
                   className="h-[22rem] w-full object-cover grayscale transition-[filter,transform] duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />

@@ -11,12 +11,21 @@ const BackgroundAudio = ({ src, volume = 0.5, isMuted }) => {
     audio.volume = volume;
     audio.muted = isMuted;
 
-    audio.play().catch((err) => {
-      console.warn("Autoplay failed:", err);
+    if (isMuted) {
+      audio.pause();
+      return;
+    }
+
+    if (audio.readyState === 0) {
+      audio.load();
+    }
+
+    audio.play().catch(() => {
+      // Ignore autoplay policy failures until the next user interaction.
     });
   }, [volume, isMuted]);
 
-  return <audio ref={audioRef} src={src} autoPlay />;
+  return <audio ref={audioRef} src={src} preload="none" playsInline />;
 };
 
 export default BackgroundAudio;

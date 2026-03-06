@@ -139,6 +139,9 @@ export default function ProjectsSection() {
                 <img
                   src={project.image}
                   alt={project.title}
+                  loading={isActive ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={isActive ? "high" : "low"}
                   className="h-full w-full object-cover"
                 />
 

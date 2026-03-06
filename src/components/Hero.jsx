@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowDown, ArrowRight, Terminal } from "lucide-react";
 import { motion as Motion } from "framer-motion";
 import VolumeControl from "./VolumeControl";
@@ -21,8 +21,6 @@ export default function Hero({ isMuted, setIsMuted }) {
   const [currentTime, setCurrentTime] = useState("");
   const [scrambledText, setScrambledText] = useState("");
   const [isScrambling, setIsScrambling] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const heroRef = useRef(null);
 
   const originalText = "SHIV CHAUHAN";
   const subtitle =
@@ -79,28 +77,10 @@ export default function Hero({ isMuted, setIsMuted }) {
     };
   }, [scrambleText]);
 
-  useEffect(() => {
-    const handleMouseMove = (event) => {
-      if (!heroRef.current) return;
-
-      const rect = heroRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: ((event.clientX - rect.left) / rect.width - 0.5) * 16,
-        y: ((event.clientY - rect.top) / rect.height - 0.5) * 16,
-      });
-    };
-
-    const element = heroRef.current;
-    element?.addEventListener("mousemove", handleMouseMove);
-
-    return () => element?.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
     <Motion.section
-      ref={heroRef}
       className="relative flex min-h-screen w-full flex-col overflow-hidden bg-black text-white"
       initial="hidden"
       whileInView="show"
@@ -192,7 +172,6 @@ export default function Hero({ isMuted, setIsMuted }) {
                 className="cursor-pointer text-5xl font-semibold leading-[1.03] tracking-tight sm:text-6xl lg:text-7xl"
                 onClick={scrambleText}
                 style={{
-                  transform: `translate(${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`,
                   fontFamily: "Clash Grotesk, sans-serif",
                 }}
               >
@@ -253,6 +232,11 @@ export default function Hero({ isMuted, setIsMuted }) {
                 <img
                   src="/assets/hero-portrait.jpeg"
                   alt="Portrait"
+                  width="960"
+                  height="1280"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                   className="h-full max-h-[68vh] w-full rounded-2xl object-cover grayscale brightness-95"
                 />
                 <div className="pointer-events-none absolute inset-3 rounded-2xl bg-gradient-to-t from-black/45 via-transparent to-black/10" />
