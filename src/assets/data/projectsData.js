@@ -1,5 +1,14 @@
 const projects = [
   {
+  title: "PensionGuard",
+  description:
+    "PensionGuard is an AI-powered smart pension distribution system built with FastAPI, React, Tailwind CSS, and SQLite. It supports eligibility verification, fraud-risk prediction, analytics dashboards, and secure officer access through a responsive full-stack interface.",
+  image:
+    "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fpension-guard-viiiiiimmv.vercel.app%2F?w=960",
+  skills: ["FastAPI", "React", "Tailwind CSS", "SQLite", "scikit-learn"],
+  links: [{ text: "Visit PensionGuard", url: "https://pension-guard-viiiiiimmv.vercel.app/" }]
+  },
+  {
   title: "HealthAssist",
   description:
     "HealthAssist is an AI-powered health assistant built with Flask, React.js, TailwindCSS, and MongoDB. It supports text and voice chat, secure sign-in, chat history, and a responsive interface for practical, everyday guidance.",
