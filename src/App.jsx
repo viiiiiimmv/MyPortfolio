@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
 import "./App.css";
 import Hero from "./components/Hero";
 import HomeLoader from "./components/HomeLoader";
@@ -30,6 +31,7 @@ function App() {
 
   return (
     <>
+      <Analytics />
       {!showLoader && (
         <BackgroundAudio
           src="/assets/betterdays.mp3"
