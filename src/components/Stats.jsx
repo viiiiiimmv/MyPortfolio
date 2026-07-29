@@ -20,7 +20,7 @@ import {
 
 const LEETCODE_PROFILE_URL = "https://leetcode.com/u/viii-iii-mmv/";
 const RESUME_URL =
-  "https://drive.google.com/file/d/180o5z1N69kH0GgS4QMjojMA9mm4Hrv5i/view?usp=share_link";
+  "https://drive.google.com/file/d/1gSfBOpRxIg-UdyP-HpX0A7xTKh1t5KPs/view?usp=sharing";
 
 const Stats = () => {
   const [currentImage, setCurrentImage] = useState(() => {
