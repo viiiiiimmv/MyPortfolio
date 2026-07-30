@@ -119,6 +119,8 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-bottom: 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .stack-card {
@@ -134,9 +136,10 @@
 
 /* Optional scrollbar style */
 .stack-grid::-webkit-scrollbar {
-  height: 8px;
+  display: none;
+  width: 0;
+  height: 0;
 }
 .stack-grid::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 4px;
+  display: none;
 }

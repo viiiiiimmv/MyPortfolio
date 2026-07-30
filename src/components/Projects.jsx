@@ -43,21 +43,6 @@ export default function ProjectsSection() {
     return () => clearInterval(interval);
   }, [isPaused, total]);
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-        setActiveIndex((prev) => wrapIndex(prev + 1, total));
-      }
-
-      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-        setActiveIndex((prev) => wrapIndex(prev - 1, total));
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [total]);
-
   if (!activeProject) return null;
 
   return (
@@ -264,7 +249,7 @@ export default function ProjectsSection() {
           className="mt-6 text-center font-mono text-xs uppercase tracking-[0.18em] text-neutral-600"
           variants={fadeUp}
         >
-          Use arrow keys, side cards, or prev/next.
+          Use side cards or prev/next.
         </Motion.p>
       </Motion.div>
 

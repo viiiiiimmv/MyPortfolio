@@ -1,12 +1,83 @@
-# React + Vite
+# Shiv Chauhan Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern personal portfolio built with React and Vite, featuring motion-driven UI, interactive project display, and responsive mobile experience.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is a developer portfolio landing page that combines custom animations, immersive site design, and approachable developer tooling.
 
-## Expanding the ESLint configuration
+### Key highlights
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19 + Vite 6 app structure
+- Framer Motion interactions and animated page transitions
+- Lazy-loaded desktop/ mobile sections for faster initial rendering
+- Custom hero experience with live IST clock, scrambled-name reveal, and audio controls
+- Auto-rotating project deck with keyboard navigation and hover pause
+- Photography showcase and downloadable resume section
+- LeetCode stats integration and contact CTA
+- Tailwind CSS styling with custom visuals and responsive layout
+
+## Project structure
+
+- `src/App.jsx` — main app shell, loader, audio, and section rendering
+- `src/components/Hero.jsx` — hero section, navigation, time display, mute toggle
+- `src/components/Projects.jsx` — interactive project carousel
+- `src/components/Stats.jsx` — resume, photography, and coding proof section
+- `src/components/BackgroundAudio.jsx` — background audio player
+- `src/components/CustomCursor.jsx` — desktop-only custom cursor
+- `src/hooks/useIsMobile.js` — mobile detection helper
+- `src/assets/data/` — project, image, and LeetCode data sources
+
+## Installation
+
+```bash
+npm install
+```
+
+## Development
+
+```bash
+npm run dev
+```
+
+Open the local URL shown by Vite to preview the portfolio.
+
+## Production build
+
+```bash
+npm run build
+```
+
+## Preview production build
+
+```bash
+npm run preview
+```
+
+## Linting
+
+```bash
+npm run lint
+```
+
+## Dependencies
+
+- `react` / `react-dom`
+- `@vitejs/plugin-react`
+- `framer-motion`
+- `lucide-react`
+- `react-icons`
+- `recharts`
+- `smoothscroll-polyfill`
+- `@emailjs/browser`
+- `tailwindcss`
+
+## Notes
+
+- Desktop includes a custom cursor and additional visual overlays.
+- On mobile, the app renders mobile-specific project and footer sections for a cleaner experience.
+- Background audio is provided by `public/assets/betterdays.mp3` and is muted by default.
+
+## License
+
+This is a private repository.
