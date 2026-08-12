@@ -15,16 +15,16 @@ const NAV_LINKS = [
   { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
+  { href: "#resume", label: "Resume" }
 ];
 
 export default function Hero({ isMuted, setIsMuted }) {
-  const [currentTime, setCurrentTime] = useState("");
   const [scrambledText, setScrambledText] = useState("");
   const [isScrambling, setIsScrambling] = useState(false);
 
   const originalText = "SHIV CHAUHAN";
   const subtitle =
-    "Full-stack developer focused on building fast, maintainable products with clean UX and practical engineering decisions.";
+    "Software Engineer building full-stack products, AI systems, and developer tools.";
 
   const scrambleText = useCallback(() => {
     if (isScrambling) return;
@@ -47,7 +47,6 @@ export default function Hero({ isMuted, setIsMuted }) {
       iterations += 1;
 
       if (iterations > originalText.length * 2) {
-        clearInterval(interval);
         setScrambledText(originalText);
         setIsScrambling(false);
       }
@@ -55,24 +54,9 @@ export default function Hero({ isMuted, setIsMuted }) {
   }, [isScrambling, originalText]);
 
   useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setCurrentTime(
-        now.toLocaleTimeString("en-US", {
-          hour12: false,
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }),
-      );
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
     const introTimeout = setTimeout(scrambleText, 650);
 
     return () => {
-      clearInterval(interval);
       clearTimeout(introTimeout);
     };
   }, [scrambleText]);
@@ -137,12 +121,6 @@ export default function Hero({ isMuted, setIsMuted }) {
         </div>
 
         <div className="flex items-center space-x-4">
-          <div
-            className="hidden rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-gray-400 lg:flex"
-            style={{ fontFamily: "Synonym, sans-serif" }}
-          >
-            IST&nbsp;<span className="text-white">{currentTime}</span>
-          </div>
           <VolumeControl isMuted={isMuted} setIsMuted={setIsMuted} />
         </div>
       </Motion.nav>
@@ -150,15 +128,6 @@ export default function Hero({ isMuted, setIsMuted }) {
       <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-6 pb-10 md:px-10 lg:px-12">
         <div className="grid h-full w-full max-w-7xl grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7 xl:col-span-6">
-            <Motion.div
-              className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-400"
-              style={{ fontFamily: "Synonym, sans-serif" }}
-              variants={fadeUp}
-            >
-              <div className="h-1.5 w-1.5 rounded-full bg-green-400" />
-              System online
-            </Motion.div>
-
             <Motion.p
               className="mb-3 text-sm uppercase tracking-[0.24em] text-gray-500"
               style={{ fontFamily: "Synonym, sans-serif" }}
@@ -201,8 +170,6 @@ export default function Hero({ isMuted, setIsMuted }) {
                 style={{ fontFamily: "Synonym, sans-serif" }}
                 whileHover={subtleHover}
               >
-                <span>&gt;</span>
-                <span>explore_portfolio.sh</span>
               </Motion.div>
 
               <Motion.a
@@ -251,28 +218,6 @@ export default function Hero({ isMuted, setIsMuted }) {
           </div>
         </div>
       </div>
-
-      <Motion.div
-        className="relative z-10 border-t border-white/10 bg-black/55 backdrop-blur-sm"
-        variants={fadeUp}
-      >
-        <div
-          className="flex items-center justify-between px-6 py-3 text-xs text-gray-500 md:px-10 lg:px-12"
-          style={{ fontFamily: "Synonym, sans-serif" }}
-        >
-          <span>Ready | UTF-8 | Portfolio {year}</span>
-          <div className="hidden space-x-1 md:flex">
-            {[1, 2, 3, 4].map((index) => (
-              <div
-                key={index}
-                className="h-1 w-1 rounded-full bg-gray-600"
-                style={{ opacity: 0.5 + index * 0.1 }}
-              />
-            ))}
-          </div>
-        </div>
-      </Motion.div>
-
     </Motion.section>
   );
 }

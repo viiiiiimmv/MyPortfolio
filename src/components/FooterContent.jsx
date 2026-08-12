@@ -2,10 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import {
-  Instagram,
   Linkedin,
   Github,
-  Twitter,
   Send,
   Loader2,
 } from "lucide-react";
@@ -86,11 +84,6 @@ const FooterContact = () => {
 
   const socialLinks = [
     {
-      icon: Instagram,
-      href: "https://www.instagram.com/__shiv.chauhan?igsh=NnJ5aWV1aTRnNnhr",
-      label: "Instagram",
-    },
-    {
       icon: Linkedin,
       href: "https://www.linkedin.com/in/shiv-chauhan-7a8f05",
       label: "LinkedIn",
@@ -99,11 +92,6 @@ const FooterContact = () => {
       icon: Github,
       href: "https://github.com/viiiiiimmv",
       label: "GitHub",
-    },
-    {
-      icon: Twitter,
-      href: "https://x.com/iamshivchauhann?t=0s3quq5vbQUwe2U64NhSBw&s=09",
-      label: "Twitter",
     },
   ];
 

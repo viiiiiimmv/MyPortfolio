@@ -1,32 +1,36 @@
 # Shiv Chauhan Portfolio
 
-A modern personal portfolio built with React and Vite, featuring motion-driven UI, interactive project display, and responsive mobile experience.
+A modern personal portfolio built with React and Vite, featuring motion-driven UI, editorial sections, project showcases, and responsive design.
 
 ## Overview
 
-This project is a developer portfolio landing page that combines custom animations, immersive site design, and approachable developer tooling.
+This project is a developer portfolio landing page that combines custom animations, focused content sections, and approachable developer tooling.
 
-### Key highlights
+### Key Highlights
 
 - React 19 + Vite 6 app structure
-- Framer Motion interactions and animated page transitions
-- Lazy-loaded desktop/ mobile sections for faster initial rendering
-- Custom hero experience with live IST clock, scrambled-name reveal, and audio controls
-- Auto-rotating project deck with keyboard navigation and hover pause
-- Photography showcase and downloadable resume section
-- LeetCode stats integration and contact CTA
+- Framer Motion interactions and animated section reveals
+- Lazy-loaded portfolio sections for faster initial rendering
+- Custom hero experience with scrambled-name reveal and audio controls
+- Editorial About, Journey, Engineering Stack, and Built & Shipped sections
+- Compact Beyond the Code section with LeetCode stats, photography, and resume CTA
+- Contact CTA with EmailJS integration
 - Tailwind CSS styling with custom visuals and responsive layout
 
-## Project structure
+## Project Structure
 
-- `src/App.jsx` — main app shell, loader, audio, and section rendering
-- `src/components/Hero.jsx` — hero section, navigation, time display, mute toggle
-- `src/components/Projects.jsx` — interactive project carousel
-- `src/components/Stats.jsx` — resume, photography, and coding proof section
-- `src/components/BackgroundAudio.jsx` — background audio player
-- `src/components/CustomCursor.jsx` — desktop-only custom cursor
-- `src/hooks/useIsMobile.js` — mobile detection helper
-- `src/assets/data/` — project, image, and LeetCode data sources
+- `src/App.jsx` - main app shell, audio, fixed links, and section rendering
+- `src/components/Hero.jsx` - hero section, navigation, scrambled-name reveal, mute toggle
+- `src/assets/Terminal.jsx` - About section
+- `src/components/Journey.jsx` - education, training, and upcoming role timeline
+- `src/components/EngineeringStack.jsx` - interactive engineering stack section
+- `src/components/Projects.jsx` - Built & Shipped project accordion and archive modal
+- `src/components/Stats.jsx` - Beyond the Code section with resume, photography, and coding proof
+- `src/components/FixedSocialLinks.jsx` - pinned GitHub and LinkedIn links
+- `src/components/BackgroundAudio.jsx` - background audio player
+- `src/components/CustomCursor.jsx` - desktop-only custom cursor
+- `src/hooks/useIsMobile.js` - mobile detection helper
+- `src/assets/data/` - project, image, and LeetCode data sources
 
 ## Installation
 
@@ -42,13 +46,13 @@ npm run dev
 
 Open the local URL shown by Vite to preview the portfolio.
 
-## Production build
+## Production Build
 
 ```bash
 npm run build
 ```
 
-## Preview production build
+## Preview Production Build
 
 ```bash
 npm run preview
@@ -66,16 +70,13 @@ npm run lint
 - `@vitejs/plugin-react`
 - `framer-motion`
 - `lucide-react`
-- `react-icons`
-- `recharts`
-- `smoothscroll-polyfill`
 - `@emailjs/browser`
 - `tailwindcss`
 
 ## Notes
 
 - Desktop includes a custom cursor and additional visual overlays.
-- On mobile, the app renders mobile-specific project and footer sections for a cleaner experience.
+- Mobile keeps the same core portfolio sections with a mobile-specific footer.
 - Background audio is provided by `public/assets/betterdays.mp3` and is muted by default.
 
 ## License

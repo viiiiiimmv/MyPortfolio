@@ -2,29 +2,39 @@ const projects = [
   {
     title: "DevPulse",
     description:
-      "DevPulse is a developer analytics platform built with Next.js, TypeScript, Prisma, and PostgreSQL. It integrates with the GitHub API to analyze repositories, contributions, commit activity, programming languages, and coding trends through interactive analytics dashboards.",
+      "Developer analytics platform that integrates with GitHub to turn repository, contribution, commit, and language data into actionable engineering insights through interactive dashboards.",
     image:
       "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdevpulse-viiiiiimmv.vercel.app%2F?w=960",
     skills: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "GitHub API"],
     links: [
-      { text: "Visit DevPulse", url: "https://devpulse-viiiiiimmv.vercel.app" }
-    ]
+      {
+        text: "Visit DevPulse",
+        url: "https://devpulse-viiiiiimmv.vercel.app"
+      }
+    ],
+    category: "Developer Tools"
   },
+
   {
     title: "DevLink",
     description:
-      "DevLink is a portfolio builder built with Next.js, TailwindCSS, MongoDB, and Cloudinary. It helps developers launch customizable personal sites with profile sections, project showcases, and a clean dashboard for quick publishing.",
+      "Developer portfolio platform that enables users to create, customize, and publish personal websites through a streamlined dashboard, with support for project showcases, profiles, media, and cloud-hosted assets.",
     image:
       "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdevlink-viiiiiimmv.vercel.app?w=960",
     skills: ["Next.js", "TailwindCSS", "MongoDB", "Cloudinary", "Vercel"],
     links: [
-      { text: "Visit DevLink", url: "https://devlink-viiiiiimmv.vercel.app" }
-    ]
+      {
+        text: "Visit DevLink",
+        url: "https://devlink-viiiiiimmv.vercel.app"
+      }
+    ],
+    category: "Developer Tools"
   },
+
   {
     title: "PensionGuard",
     description:
-      "PensionGuard is an AI-powered smart pension distribution system built with FastAPI, React, Tailwind CSS, and SQLite. It supports eligibility verification, fraud-risk prediction, analytics dashboards, and secure officer access through a responsive full-stack interface.",
+      "AI-assisted pension distribution platform that combines eligibility verification, fraud-risk prediction, and administrative analytics in a secure full-stack system designed to streamline pension processing.",
     image:
       "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fpension-guard-viiiiiimmv.vercel.app%2F?w=960",
     skills: ["FastAPI", "React", "Tailwind CSS", "SQLite", "scikit-learn"],
@@ -33,12 +43,14 @@ const projects = [
         text: "Visit PensionGuard",
         url: "https://pension-guard-viiiiiimmv.vercel.app/"
       }
-    ]
+    ],
+    category: "AI Systems"
   },
+
   {
     title: "HealthAssist",
     description:
-      "HealthAssist is an AI-powered health assistant built with Flask, React.js, TailwindCSS, and MongoDB. It supports text and voice chat, secure sign-in, chat history, and a responsive interface for practical, everyday guidance.",
+      "AI-powered health assistant that combines conversational interaction, voice input, secure authentication, and persistent chat history to provide accessible everyday health and wellness guidance.",
     image:
       "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fhealth-assist-chatbot-viiiiiimmv.vercel.app?w=960",
     skills: ["Flask", "React.js", "TailwindCSS", "OpenAI API", "MongoDB"],
@@ -47,7 +59,8 @@ const projects = [
         text: "Visit HealthAssist",
         url: "https://health-assist-chatbot-viiiiiimmv.vercel.app/"
       }
-    ]
+    ],
+    category: "AI Systems"
   },
 ];
 

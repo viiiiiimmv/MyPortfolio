@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import {
-  Instagram,
   Linkedin,
   Github,
-  Twitter,
   Mail,
   MapPin,
   Calendar,
@@ -22,12 +20,6 @@ const MobileFooterSection = () => {
 
   const socialLinks = [
     {
-      icon: Instagram,
-      href: "https://www.instagram.com/__shiv.chauhan?igsh=NnJ5aWV1aTRnNnhr",
-      label: "Instagram",
-      color: "hover:text-pink-400",
-    },
-    {
       icon: Linkedin,
       href: "https://www.linkedin.com/in/shiv-chauhan-7a8f05",
       label: "LinkedIn",
@@ -38,12 +30,6 @@ const MobileFooterSection = () => {
       href: "https://github.com/viiiiiimmv",
       label: "GitHub",
       color: "hover:text-gray-300",
-    },
-    {
-      icon: Twitter,
-      href: "https://x.com/iamshivchauhann?t=0s3quq5vbQUwe2U64NhSBw&s=09",
-      label: "Twitter",
-      color: "hover:text-blue-300",
     },
   ];
 
