@@ -1,0 +1,226 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-grotesk@100,200,300,400,500,600,700&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@100,200,300,400,500,600,700&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=synonym@100,200,300,400,500,600,700&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=array@100,200,300,400,500,600,700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #f4f4f5;
+  --cursor-x: 50vw;
+  --cursor-y: 50vh;
+  --spotlight-opacity: 0;
+  --font-satoshi: "Satoshi", sans-serif;
+  --font-clash: "Clash Grotesk", sans-serif;
+  --font-synonym: "Synonym", sans-serif;
+  --font-array: "Array", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-clash: "Clash Grotesk", sans-serif;
+  --font-satoshi: "Satoshi", sans-serif;
+  --font-synonym: "Synonym", sans-serif;
+  --font-array: "Array", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+  background-color: #000000;
+  color: #f4f4f5;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #000000;
+  color: #f4f4f5;
+  font-family: "Satoshi", sans-serif;
+  min-height: 100vh;
+}
+
+.font-clash {
+  font-family: "Clash Grotesk", sans-serif !important;
+}
+
+.font-satoshi {
+  font-family: "Satoshi", sans-serif !important;
+}
+
+.font-synonym {
+  font-family: "Synonym", sans-serif !important;
+}
+
+.font-array {
+  font-family: "Array", sans-serif !important;
+}
+
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+/* Hide scrollbars while preserving scroll functionality */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Grid & Spotlight overlays */
+.global-grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  opacity: 0.07;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.global-spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 35;
+  opacity: var(--spotlight-opacity);
+  background: radial-gradient(
+    480px circle at var(--cursor-x) var(--cursor-y),
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03) 30%,
+    transparent 65%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 160ms ease;
+}
+
+@media (max-width: 768px) {
+  .global-grid-overlay {
+    opacity: 0.04;
+  }
+}
+
+/* Custom Cursor */
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+.cursor-wrapper {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.cursor-wrapper.is-visible {
+  opacity: 1;
+}
+
+.cursor-ring,
+.cursor-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35) inset,
+    0 0 20px rgba(255, 255, 255, 0.16);
+  transition:
+    width 180ms ease,
+    height 180ms ease,
+    margin 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
+  transition:
+    width 140ms ease,
+    height 140ms ease,
+    margin 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.cursor-axis {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: opacity 160ms ease;
+}
+
+.cursor-axis-h {
+  width: 12px;
+  height: 1px;
+}
+
+.cursor-axis-v {
+  width: 1px;
+  height: 12px;
+}
+
+.cursor-wrapper.is-interactive .cursor-ring {
+  width: 54px;
+  height: 54px;
+  margin-left: -27px;
+  margin-top: -27px;
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.22) inset,
+    0 0 28px rgba(255, 255, 255, 0.22);
+}
+
+.cursor-wrapper.is-interactive .cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top: -4px;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+}
+
+.cursor-wrapper.is-pressed .cursor-ring {
+  width: 26px;
+  height: 26px;
+  margin-left: -13px;
+  margin-top: -13px;
+  background: rgba(255, 255, 255, 0.18);
+}

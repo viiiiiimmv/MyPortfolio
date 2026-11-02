@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Shiv Chauhan Logo">
+  <defs>
+    <linearGradient id="scBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#050505"/>
+  <rect width="496" height="496" x="8" y="8" rx="104" fill="none" stroke="url(#scBorder)" stroke-width="12"/>
+  <g transform="translate(96, 80) scale(0.445)">
+    <path d="M 717 601 L 635 556 L 627 555 L 618 559 L 463 646 L 463 742 Z M 423 351 L 357 389 L 351 396 L 348 404 L 347 657 L 150 534 L 141 531 L 129 531 L 119 535 L 2 601 L 149 683 L 326 785 L 346 791 L 364 791 L 379 787 L 389 782 L 400 774 L 413 758 L 421 739 L 423 725 Z M 177 323 L 265 374 L 413 286 L 426 281 L 441 281 L 455 286 L 626 390 L 635 387 L 717 340 L 480 199 L 465 192 L 445 187 L 424 187 L 413 189 L 387 200 Z M 409 0 L 369 22 L 41 214 L 29 224 L 13 244 L 5 259 L 0 276 L 1 345 L 4 355 L 12 370 L 27 387 L 36 394 L 307 556 L 308 486 L 307 481 L 302 472 L 293 465 L 98 346 L 91 339 L 85 328 L 83 311 L 89 294 L 97 285 L 408 103 Z" fill="#FFFFFF" fill-rule="evenodd"/>
+  </g>
+</svg>
