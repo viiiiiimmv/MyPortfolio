@@ -14,6 +14,9 @@ import {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  verification: {
+    google: process.env.GOOGLE_TAG,
+  },
   title: {
     default: SITE_TITLE_DEFAULT,
     template: SITE_TITLE_TEMPLATE,
