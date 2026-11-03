@@ -49,7 +49,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE_DEFAULT,
     description: SITE_DESCRIPTION,
-    creator: "@viiiiiimmv",
   },
   robots: {
     index: true,
@@ -64,13 +63,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.svg?v=3", type: "image/svg+xml" },
-      { url: "/favicon.ico?v=3", sizes: "any" },
-      { url: "/icon-192.png?v=3", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.svg?v=4", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=4", sizes: "any" },
+      { url: "/icon-192.png?v=4", sizes: "192x192", type: "image/png" },
     ],
-    shortcut: ["/favicon.ico?v=3"],
+    shortcut: ["/favicon.ico?v=4"],
     apple: [
-      { url: "/apple-touch-icon.png?v=3", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png?v=4", sizes: "180x180", type: "image/png" },
     ],
   },
   category: "technology",

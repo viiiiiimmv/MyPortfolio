@@ -15,7 +15,7 @@ import {
   Phone,
   ExternalLink,
 } from "lucide-react";
-import { GithubIcon, LinkedinIcon, LeetCodeIcon, TwitterIcon, ShivChauhanLogo } from "@/components/common/Icons";
+import { GithubIcon, LinkedinIcon, LeetCodeIcon, ShivChauhanLogo } from "@/components/common/Icons";
 import { ProfileDTO, ContactMessageRequest, ProblemDetail } from "@/types/portfolio";
 import { submitContactMessage } from "@/services/api";
 import {
@@ -387,19 +387,6 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                         >
                           <LeetCodeIcon className="h-4 w-4" />
                           <span>LeetCode</span>
-                        </a>
-                      )}
-                      {(links.twitter || links.x) && (
-                        <a
-                          href={(links.twitter || links.x)!}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="group/btn inline-flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 font-satoshi text-xs font-medium uppercase tracking-wider text-neutral-400 transition-all duration-300 hover:border-white/40 hover:text-white"
-                          title="X / Twitter Profile"
-                        >
-                          <TwitterIcon className="h-4 w-4" />
-                          <span>X</span>
                         </a>
                       )}
                     </div>

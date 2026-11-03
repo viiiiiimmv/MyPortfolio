@@ -76,7 +76,6 @@ export function generatePersonJsonLd(profile?: ProfileDTO) {
     ? [
         profile.socialLinks.github,
         profile.socialLinks.linkedin,
-        profile.socialLinks.twitter,
         profile.socialLinks.leetcode,
       ].filter((url): url is string => Boolean(url))
     : SOCIAL_PROFILES;

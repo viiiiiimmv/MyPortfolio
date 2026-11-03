@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { SocialLinksDTO } from "@/types/portfolio";
 import { subtleHover, subtlePress } from "@/lib/motion";
-import { GithubIcon, LinkedinIcon, LeetCodeIcon, TwitterIcon } from "@/components/common/Icons";
+import { GithubIcon, LinkedinIcon, LeetCodeIcon } from "@/components/common/Icons";
 
 interface FixedSocialLinksProps {
   socialLinks?: SocialLinksDTO;
@@ -24,9 +24,6 @@ export default function FixedSocialLinks({ socialLinks }: FixedSocialLinksProps)
   }
   if (socialLinks.linkedin) {
     links.push({ icon: LinkedinIcon, href: socialLinks.linkedin, label: "LinkedIn" });
-  }
-  if (socialLinks.twitter || socialLinks.x) {
-    links.push({ icon: TwitterIcon, href: (socialLinks.twitter || socialLinks.x)!, label: "X (Twitter)" });
   }
   if (socialLinks.leetcode) {
     links.push({ icon: LeetCodeIcon, href: socialLinks.leetcode, label: "LeetCode" });

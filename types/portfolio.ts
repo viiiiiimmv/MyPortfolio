@@ -14,7 +14,6 @@ export interface SocialLinksDTO {
   github?: string;
   linkedin?: string;
   leetcode?: string;
-  twitter?: string;
   website?: string;
   [key: string]: string | undefined;
 }

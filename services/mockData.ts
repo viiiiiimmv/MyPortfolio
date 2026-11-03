@@ -37,7 +37,6 @@ export const MOCK_PROFILE: ProfileDTO = {
   },
   "socialLinks": {
     "github": "https://github.com/viiiiiimmv",
-    "twitter": "https://x.com/shivchauhan",
     "website": "https://shivchauhan.vercel.app",
     "linkedin": "https://www.linkedin.com/in/shiv-chauhan-7a8f05/"
   },

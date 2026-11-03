@@ -109,7 +109,14 @@ async function main() {
   const appleTouchBuf = await renderLogoPng(180);
   const appleTouchPath = path.join(rootDir, "public", "apple-touch-icon.png");
   fs.writeFileSync(appleTouchPath, appleTouchBuf);
-  console.log(`✓ Saved public/apple-touch-icon.png (${appleTouchBuf.length} bytes)`);
+  fs.writeFileSync(path.join(rootDir, "app", "apple-icon.png"), appleTouchBuf);
+  console.log(`✓ Saved public/apple-touch-icon.png and app/apple-icon.png (${appleTouchBuf.length} bytes)`);
+
+  // 2b. Generate App standard icon: 32x32
+  const png32Buf = await renderLogoPng(32);
+  fs.writeFileSync(path.join(rootDir, "app", "icon.png"), png32Buf);
+  fs.writeFileSync(path.join(rootDir, "public", "icon.png"), png32Buf);
+  console.log(`✓ Saved app/icon.png & public/icon.png (32x32)`);
 
   // 3. Generate Android / PWA Icons: 192x192 and 512x512
   const pwa192Buf = await renderLogoPng(192);
@@ -138,7 +145,8 @@ async function main() {
 
   fs.writeFileSync(path.join(rootDir, "public", "favicon.svg"), svgFaviconContent);
   fs.writeFileSync(path.join(rootDir, "public", "shiv-chauhan-logo.svg"), svgFaviconContent);
-  console.log(`✓ Updated public/favicon.svg & public/shiv-chauhan-logo.svg`);
+  fs.writeFileSync(path.join(rootDir, "app", "icon.svg"), svgFaviconContent);
+  console.log(`✓ Updated public/favicon.svg, app/icon.svg & public/shiv-chauhan-logo.svg`);
 
   // Clean up mjs file
   try {
