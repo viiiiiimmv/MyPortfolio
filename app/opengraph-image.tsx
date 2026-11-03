@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Shiv Chauhan — Senior Backend & Distributed Systems Engineer";
+  "Shiv Chauhan — FullStack Web Developer & Software Engineer";
 export const size = {
   width: 1200,
   height: 630,
@@ -119,7 +119,7 @@ export default async function Image() {
               marginBottom: "24px",
             }}
           >
-            Senior Backend & Distributed Systems Engineer
+            FullStack Web Developer & Software Engineer
           </div>
 
           <div
@@ -129,7 +129,7 @@ export default async function Image() {
               flexWrap: "wrap",
             }}
           >
-            {["Java 21", "Spring Boot 3", "Apache Kafka", "PostgreSQL", "Kubernetes", "System Design"].map((skill) => (
+            {["Java", "Spring Boot", "TypeScript", "Next.js", "Python", "PostgreSQL", "MongoDB", "AI Systems"].map((skill) => (
               <div
                 key={skill}
                 style={{

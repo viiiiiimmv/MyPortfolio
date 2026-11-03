@@ -1,4 +1,6 @@
+
 import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import {
   SITE_URL,
@@ -95,7 +97,10 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+
         {children}
+
+        <GoogleAnalytics gaId={`${process.env.GA_ID}`} />
       </body>
     </html>
   );

@@ -65,7 +65,10 @@ export default function AboutSection({ profile }: AboutSectionProps) {
                 </div>
               </div>
               <p className="font-satoshi mt-3 text-2xl font-semibold tracking-tight text-white md:text-3xl">
-                {profile.yearsOfExperience}+ <span className="text-sm font-normal text-neutral-400">Years</span>
+                {profile.yearsOfExperience > 0 ? `${profile.yearsOfExperience}+ ` : "Graduate / "}
+                <span className="text-sm font-normal text-neutral-400">
+                  {profile.yearsOfExperience > 0 ? "Years" : "Early Career"}
+                </span>
               </p>
               <p className="font-satoshi mt-1 text-xs text-neutral-500">
                 Production systems & software delivery

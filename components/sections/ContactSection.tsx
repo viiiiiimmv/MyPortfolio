@@ -15,7 +15,7 @@ import {
   Phone,
   ExternalLink,
 } from "lucide-react";
-import { GithubIcon, LinkedinIcon, LeetCodeIcon, ShivChauhanLogo } from "@/components/common/Icons";
+import { GithubIcon, LinkedinIcon, LeetCodeIcon, TwitterIcon, ShivChauhanLogo } from "@/components/common/Icons";
 import { ProfileDTO, ContactMessageRequest, ProblemDetail } from "@/types/portfolio";
 import { submitContactMessage } from "@/services/api";
 import {
@@ -389,6 +389,19 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                           <span>LeetCode</span>
                         </a>
                       )}
+                      {(links.twitter || links.x) && (
+                        <a
+                          href={(links.twitter || links.x)!}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="group/btn inline-flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 font-satoshi text-xs font-medium uppercase tracking-wider text-neutral-400 transition-all duration-300 hover:border-white/40 hover:text-white"
+                          title="X / Twitter Profile"
+                        >
+                          <TwitterIcon className="h-4 w-4" />
+                          <span>X</span>
+                        </a>
+                      )}
                     </div>
                   </div>
 
@@ -515,7 +528,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleCopy(profile.phoneNumber || "+1 (555) 019-2834", "phone");
+                            handleCopy(profile.phoneNumber || "+91 9625028888", "phone");
                           }}
                           className="flex items-center gap-1 font-mono text-[11px] text-neutral-400 hover:text-white transition-colors"
                           title="Copy phone number"
@@ -535,12 +548,12 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                         </button>
                       </div>
                       <a
-                        href={`tel:${(profile.phoneNumber || "+15550192834").replace(/[^0-9+]/g, "")}`}
+                        href={`tel:${(profile.phoneNumber || "9625028888").replace(/[^0-9+]/g, "")}`}
                         onClick={(e) => e.stopPropagation()}
                         className="mt-1 flex items-center gap-2 font-satoshi text-sm md:text-base font-normal text-white hover:text-neutral-300 truncate"
                       >
                         <Phone className="h-3.5 w-3.5 text-neutral-400" />
-                        <span>{profile.phoneNumber || "+1 (555) 019-2834"}</span>
+                        <span>{profile.phoneNumber || "+91 9625028888"}</span>
                       </a>
                     </div>
                   </div>

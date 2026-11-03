@@ -9,38 +9,49 @@ export const SITE_URL =
     : "https://shivchauhan.vercel.app");
 
 export const AUTHOR_NAME = "Shiv Chauhan";
-export const SITE_NAME = "Shiv Chauhan — Software Engineer Portfolio";
+export const SITE_NAME = "Shiv Chauhan — FullStack Web Developer Portfolio";
 export const SITE_TITLE_DEFAULT =
-  "Shiv Chauhan — Senior Backend & Distributed Systems Engineer";
+  "Shiv Chauhan — FullStack Web Developer & Software Engineer";
 export const SITE_TITLE_TEMPLATE = "%s | Shiv Chauhan";
 export const SITE_DESCRIPTION =
-  "Portfolio of Shiv Chauhan, Senior Backend & Distributed Systems Engineer specializing in high-throughput architectures, event-driven pipelines, Spring Boot 3, Apache Kafka, and cloud-native systems.";
+  "Portfolio of Shiv Chauhan, FullStack Web Developer building full-stack products, backend systems, AI systems, and developer tooling with Java, Spring Boot, TypeScript, Next.js, and Python.";
 
 export const SITE_KEYWORDS = [
   "Shiv Chauhan",
   "Shiv Chauhan Portfolio",
+  "FullStack Web Developer",
   "Software Engineer",
-  "Senior Backend Engineer",
-  "Distributed Systems Engineer",
-  "Cloud Architecture",
-  "Java 21",
-  "Spring Boot 3",
-  "Apache Kafka",
+  "Backend Engineer",
+  "Java",
+  "SpringBoot",
+  "TypeScript",
+  "NextJS",
+  "TailwindCSS",
+  "ReactJS",
+  "Python",
+  "FastAPI",
+  "Flask",
+  "C#",
+  ".NET",
+  "ASP.NET Core",
   "PostgreSQL",
-  "Kubernetes",
-  "Docker",
-  "Event-Driven Architecture",
-  "Microservices",
-  "High Throughput Systems",
-  "System Design",
-  "APIs",
-  "REST",
-  "gRPC",
+  "MongoDB",
+  "SQL Server",
+  "Git",
+  "Redis",
+  "BullMQ",
+  "Prisma",
+  "REST API Development",
+  "OpenAI API",
+  "AI Systems",
+  "Developer Tooling",
+  "Capgemini",
+  "Chandigarh University",
 ];
 
 export const SOCIAL_PROFILES = [
   "https://github.com/viiiiiimmv",
-  "https://www.linkedin.com/in/shiv-chauhan-7a8f05",
+  "https://www.linkedin.com/in/shiv-chauhan-7a8f05/",
   "https://leetcode.com/u/viii-iii-mmv/",
 ];
 
@@ -58,8 +69,17 @@ export function generatePersonJsonLd(profile?: ProfileDTO) {
   const name = profile?.fullName || AUTHOR_NAME;
   const description =
     profile?.bio ||
-    profile?.headline ||
-    "Senior Backend & Distributed Systems Engineer specializing in fault-tolerant architectures and high-throughput systems.";
+    profile?.heroTagLine ||
+    SITE_DESCRIPTION;
+
+  const sameAsLinks = profile?.socialLinks
+    ? [
+        profile.socialLinks.github,
+        profile.socialLinks.linkedin,
+        profile.socialLinks.twitter,
+        profile.socialLinks.leetcode,
+      ].filter((url): url is string => Boolean(url))
+    : SOCIAL_PROFILES;
 
   return {
     "@context": "https://schema.org",
@@ -68,32 +88,55 @@ export function generatePersonJsonLd(profile?: ProfileDTO) {
     name,
     givenName: "Shiv",
     familyName: "Chauhan",
-    jobTitle: profile?.headline || "Senior Backend & Distributed Systems Engineer",
+    jobTitle: profile?.headline || "FullStack Web Developer",
     description,
     url: SITE_URL,
     image:
       profile?.profileImage?.cloudinaryUrl ||
-      `${SITE_URL}/shiv-chauhan-logo.svg`,
+      "https://res.cloudinary.com/bgwc25au/image/upload/v1793450392/portfolio/profile/djigjkc9sui3qkkx37qh.jpg",
     email: profile?.primaryEmail || "mailto:shivchauhan41223@gmail.com",
-    sameAs: SOCIAL_PROFILES,
+    telephone: profile?.phoneNumber || "+91 9625028888",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: profile?.location?.split(",")[0]?.trim() || "Panchkula",
+      addressRegion: profile?.location?.split(",")[1]?.trim() || "Haryana",
+      addressCountry: "IN",
+    },
+    sameAs: sameAsLinks.length > 0 ? sameAsLinks : SOCIAL_PROFILES,
     knowsAbout: [
-      "Distributed Systems",
-      "Event-Driven Microservices",
-      "High-Throughput Architectures",
-      "Java 21",
-      "Spring Boot 3",
-      "Apache Kafka",
+      "Full-Stack Web Development",
+      "Backend Architecture",
+      "AI Systems",
+      "Developer Tooling",
+      "Java",
+      "Spring Boot",
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+      "React",
+      "Python",
+      "FastAPI",
+      "C#",
+      ".NET",
+      "ASP.NET Core",
       "PostgreSQL",
+      "MongoDB",
+      "SQL Server",
       "Redis",
-      "Kubernetes",
-      "Docker",
-      "REST & gRPC APIs",
-      "Database Internals & Consensus",
+      "BullMQ",
+      "Prisma",
+      "REST APIs",
+      "OpenAI API",
     ],
     alumniOf: {
       "@type": "EducationalOrganization",
-      name: "University of California, Berkeley",
-      sameAs: "https://www.berkeley.edu",
+      name: "Chandigarh University",
+      sameAs: "https://www.cuchd.in/",
+    },
+    worksFor: {
+      "@type": "Organization",
+      name: "Capgemini",
+      sameAs: "https://www.capgemini.com/in-en/",
     },
   };
 }

@@ -14,6 +14,8 @@ export interface SocialLinksDTO {
   github?: string;
   linkedin?: string;
   leetcode?: string;
+  twitter?: string;
+  website?: string;
   [key: string]: string | undefined;
 }
 
@@ -28,6 +30,7 @@ export interface ProfileDTO {
   location?: string;
   profileImage?: CloudinaryImageDTO;
   resumeUrl?: ExternalLinkDTO;
+  cvUrl?: ExternalLinkDTO;
   socialLinks: SocialLinksDTO;
   heroTagLine: string;
   availabilityStatus: string;
@@ -36,10 +39,15 @@ export interface ProfileDTO {
   updatedAt?: string;
 }
 
+export interface SkillCategoryDTO {
+  id?: number;
+  name: string;
+}
+
 export interface SkillDTO {
   publicId: string;
   name: string;
-  category?: string;
+  category?: string | SkillCategoryDTO;
 }
 
 export interface ProjectDTO {
@@ -48,19 +56,22 @@ export interface ProjectDTO {
   shortDescription: string;
   description: string;
   category: string;
-  projectImage?: CloudinaryImageDTO;
-  githubUrl?: ExternalLinkDTO;
-  liveUrl?: ExternalLinkDTO;
-  documentationUrl?: ExternalLinkDTO;
+  projectImage?: CloudinaryImageDTO | null;
+  githubUrl?: ExternalLinkDTO | null;
+  liveUrl?: ExternalLinkDTO | null;
+  documentationUrl?: ExternalLinkDTO | null;
   techStack?: {
     skills: SkillDTO[];
   };
-  startDate?: string;
-  endDate?: string;
+  startDate?: string | null;
+  endDate?: string | null;
   status: "COMPLETED" | "IN_PROGRESS" | "PLANNED" | "DRAFT" | string;
-  publicationStatus: "PUBLISHED" | "DRAFTED" | "UNPUBLISHED" | string;
-  isFeatured: boolean;
+  publicationStatus?: "PUBLISHED" | "DRAFTED" | "UNPUBLISHED" | string;
+  isFeatured?: boolean;
+  featured?: boolean;
   isDisplayed?: boolean;
+  displayed?: boolean;
+  visible?: boolean;
   keyHighlights?: string[];
   displayOrder?: number;
   createdAt?: string;
@@ -96,7 +107,8 @@ export interface ExperienceDTO {
   startMonth?: string | number;
   startYear: number | string;
   endMonth?: string | number;
-  endYear?: number | string;
+  endYear?: string | number;
+  displayOrder?: number;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -117,7 +129,9 @@ export interface EducationDTO {
   relevantCoursework?: string[];
   displayOrder?: number;
   isVisible?: boolean;
+  visible?: boolean;
   isFeatured?: boolean;
+  featured?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
